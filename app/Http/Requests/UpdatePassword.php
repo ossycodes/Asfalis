@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdatePassword extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'old_password' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!Hash::check(request('old_password'), auth()->user()->password)) {
+                        $fail('old password is incorrect.');
+                    }
+                },
+            ],
+            'new_password' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (Hash::check(request('new_password'), auth()->user()->password)) {
+                        $fail('new password cannot be the same as your old password.');
+                    }
+                },
+            ]
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'old_password.required' => 'old password is required',
+            'new_password.required'  => 'new password is required',
+        ];
+    }
+}
