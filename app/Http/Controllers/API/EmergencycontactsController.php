@@ -22,12 +22,6 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        if (!auth()->user()->emergencycontacts()->exists()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'No emergency contacts registered'
-            ], 404);
-        }
         return Emergencycontacts::collection(auth()->user()->emergencycontacts);
     }
 
@@ -57,12 +51,6 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function show(\App\Emergencycontacts $emergencycontacts)
     {
-        // if (!$emergencycontacts->exists()) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'emergencycontact does not exist'
-        //     ], 404);
-        // }
         return response()->json(new Emergencycontacts($emergencycontacts), 200);
     }
 

@@ -14,7 +14,7 @@ class Emergencycontacts extends Model
      */
     protected $guarded = [];
 
-     /**
+    /**
      * The event map for the model.
      *
      * @var array
@@ -24,7 +24,9 @@ class Emergencycontacts extends Model
     ];
 
     //an emergency contact belongs to a user 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
+
 }

@@ -54,8 +54,13 @@ class EmergencyController extends Controller
     public function notify()
     {
         $user = auth()->user();
-
         $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
+
+        if (!$emergencyContacts) {
+            return response()->json([
+                'error' => 'no emergency contact registered'
+            ], 400);
+        }
 
         foreach ($emergencyContacts as $contact) {
             Mail::to($contact)->send(new EmergencyMail($contact->name));
