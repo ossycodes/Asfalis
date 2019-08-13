@@ -63,7 +63,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
         //         'message' => 'emergencycontact does not exist'
         //     ], 404);
         // }
-        return new Emergencycontacts($emergencycontacts);
+        return response()->json(new Emergencycontacts($emergencycontacts), 200);
     }
 
     /**
@@ -73,7 +73,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      * @param  \App\Emergencycontacts  $emergencycontacts
      * @return \Illuminate\Http\Response
      */
-    public function update(RegisterEmergencycontacts $request, Emergencycontacts $emergencycontacts)
+    public function update(RegisterEmergencycontacts $request, \App\Emergencycontacts $emergencycontacts)
     {
         $emergencycontacts->update(request()->all());
         return response()->json([], Response::HTTP_NO_CONTENT);

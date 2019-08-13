@@ -1,7 +1,7 @@
 @component('mail::message')
 # Thank you for signing up, {{ $user->name }}
 
-We build USECURED to help our users curb emergency situation ASAP by reaching out to registered emergency contacts which are assumed to close friends/families of the user.
+We built USECURED to help our users curb emergency situation ASAP by reaching out to registered emergency contacts which are assumed to close friends/families of the user.
 
 @component('mail::button', ['url' => 'localhost:8000'])
 You can read more about us on our website.
