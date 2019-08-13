@@ -85,7 +85,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      * @param  \App\Emergencycontacts  $emergencycontacts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Emergencycontacts $emergencycontacts)
+    public function destroy(\App\Emergencycontacts $emergencycontacts)
     {
         $emergencycontacts->delete();
         return response()->json([], Response::HTTP_NO_CONTENT);
