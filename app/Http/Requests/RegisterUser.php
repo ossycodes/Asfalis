@@ -30,7 +30,8 @@ class RegisterUser extends FormRequest
             'email' => 'required|email|unique:users,email',
             'phonenumber' => 'required|digits:11|unique:users,phonenumber' ,
             'address' => 'required|string',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
         ];
     }
 }

@@ -1,16 +1,16 @@
 @component('mail::message')
-# Welcome to Usecured
+# Thank you for signing up, {{ $user->name }}
 
-Hi {{ $user->name }} thank you for joining USecured
+We build USECURED to help our users curb emergency situation ASAP by reaching out to registered emergency contacts which are assumed to close friends/families of the user.
 
 @component('mail::button', ['url' => 'localhost:8000'])
-Visit Website
+You can read more about us on our website.
 @endcomponent
 
 @component('mail::button', ['url' => ''])
 Download Mobile App
 @endcomponent
 
-Thanks,<br>
+All the best<br>
 {{ config('app.name') }}
 @endcomponent

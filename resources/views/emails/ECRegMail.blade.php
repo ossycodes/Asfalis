@@ -1,11 +1,15 @@
 @component('mail::message')
-# Welcome to USECURE
+# Welcome to USECURED
 
 Dear {{ $emergencycontact->name }}, {{ $user->name }} registered you as an emergency contact.
+<br>
+Hence we would always alert or notify you via EMAIL and SMS whenever {{ $user->name }} is in danger/emergency situation.
 
-explain what emergency contact means
-add a link to the web site
+@component('mail::button', ['url' => ''])
+You can read about us on our website.
+@endcomponent
 
-Thanks,<br>
+
+Thanks and all the best,<br>
 {{ config('app.name') }}
 @endcomponent
