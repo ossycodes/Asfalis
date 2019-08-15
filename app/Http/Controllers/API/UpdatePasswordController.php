@@ -15,9 +15,11 @@ class UpdatePasswordController extends \App\Http\Controllers\Controller
     public function update(UpdatePassword $request)
     {
         auth()->user()->update([
-            'password' => 'secret'
+            'password' => bcrypt(request('new_password')),
+            'default_password' => null
         ]);
 
         return response()->json([], \Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT);
     }
 }
+

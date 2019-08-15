@@ -40,4 +40,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'geocoder' => [
+        'key' => env('GEOCODER_KEY')
+    ],
+
 ];

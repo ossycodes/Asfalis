@@ -5,18 +5,22 @@ namespace App\Http\Controllers\API;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterUser;
+use App\Http\Resources\User as AppUser;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends \App\Http\Controllers\Controller
 {
-    public function store(RegisterUser $request)
+   
+    public function store(RegisterUser $request, User $user)
     {
-        User::create(request()->except('password_confirmation'));
-        
-        if (!$token = auth()->attempt(request()->only(['email', 'password']))) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if ($user->register()) {
+            return response()->json([
+                'message' => 'registeration successful, password as been sent to your email'
+            ], Response::HTTP_CREATED);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json([
+            'error' => 'something went wrong'
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-
 }

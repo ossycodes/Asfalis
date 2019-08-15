@@ -77,6 +77,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(ResetToken::class);
     }
 
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function createResetToken()
     {
         $token = str_random();
@@ -92,4 +97,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->resetToken()->exists();
     }
 
+    public function register()
+    {
+        $defaultPassword = \Illuminate\Support\Str::random(10);
+
+        $user = $this->create([
+            'first_name' => request('first_name'),
+            'last_name' => request('last_name'),
+            'email' => request('email'),
+            'phonenumber' => request('phonenumber'),
+            'default_password' => $defaultPassword,
+            'password' => $defaultPassword
+        ]);
+
+        return $user;
+    }
 }

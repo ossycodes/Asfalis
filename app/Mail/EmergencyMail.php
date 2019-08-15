@@ -13,16 +13,18 @@ class EmergencyMail extends Mailable
 
     public $emergencyContactName;
     public $user;
+    public $userLocation;
     
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($emergencyContactName)
+    public function __construct($emergencyContactName, $userLocation)
     {
         $this->emergencyContactName = $emergencyContactName;
         $this->user = auth()->user();
+        $this->userLocation = $userLocation;
     }
 
     /**

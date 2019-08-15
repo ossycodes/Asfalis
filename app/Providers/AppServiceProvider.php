@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use GuzzleHttp\Client;
 use AfricasTalking\SDK\AfricasTalking;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(AfricasTalking::class,function() {
+        $this->app->singleton(AfricasTalking::class, function () {
             return new AfricasTalking(config('services.africastalking.username'), config('services.africastalking.apiKey'));
         });
     }

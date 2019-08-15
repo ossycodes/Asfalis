@@ -26,12 +26,10 @@ class RegisterUser extends FormRequest
         //note:checkout africastalking laravel package steal the guy's phonenumber regrex 
         //phonenumber validation and add as a custom rule.
         return [
-            'name' => 'required|string|max:150',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'phonenumber' => 'required|digits:11|unique:users,phonenumber' ,
-            'address' => 'required|string',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'phonenumber' => 'required|digits:11|unique:users,phonenumber',
         ];
     }
 }

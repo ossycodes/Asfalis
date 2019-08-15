@@ -17,7 +17,6 @@ class AuthController extends  \App\Http\Controllers\Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth:api', ['except' => ['login']]);
         $this->middleware('jwt', ['except' => ['login']]);
     }
 
@@ -28,6 +27,7 @@ class AuthController extends  \App\Http\Controllers\Controller
      */
     public function login(LoginUser $request)
     {
+
         if (!$token = auth()->attempt(request(['email', 'password']))) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

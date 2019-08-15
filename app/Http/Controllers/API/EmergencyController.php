@@ -9,12 +9,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use AfricasTalking\SDK\AfricasTalking;
 use App\Http\Resources\Emergencycontacts;
+use Symfony\Component\HttpFoundation\Response;
+use App\Helpers\Customresponses;
 
 class EmergencyController extends Controller
 {
-    public function __construct()
+    public function __construct(Customresponses $customResponse)
     {
         $this->middleware('jwt', ['only' => 'notify']);
+        $this->customApiResponse = $customResponse;
     }
 
     public function send()
@@ -57,16 +60,22 @@ class EmergencyController extends Controller
         $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
 
         if (!$emergencyContacts) {
-            return response()->json([
-                'error' => 'no emergency contact registered'
-            ], 400);
+            return $this->customApiResponse()->errorBadRequest('no emergency contact registered');
         }
 
-        foreach ($emergencyContacts as $contact) {
-            Mail::to($contact)->send(new EmergencyMail($contact->name));
-            $contact->phonenumber = \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber);
-            // $this->sendSMS($user->name, $contact->phonenumber);
+        try {
+            $userLocation = resolve('App\Services\GeolocationService')->getUserLocation();
+
+            foreach ($emergencyContacts as $contact) {
+                Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
+                $contact->phonenumber = \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber);
+                // $smsService = resolve('App\Services\SMSservice')->sendSMS($user->name, $contact->phonenumber);
+            }
+        } catch (\Exception $e) {
+            return $this->customApiResponse->errorInternal('could not connect to host, please try again later');
         }
+
+        return $this->customApiResponse->okay('sms and email sent to emergency contacts');
     }
 
     public function sendSMS($username, $recepient)

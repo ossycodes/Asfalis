@@ -6,25 +6,31 @@ use Illuminate\Filesystem\Filesystem;
 
 class SMSservice
 { 
-    public function sendSMS($recepients) {
-        dd('yeahh');
-        dd(\Illuminate\Support\Str::replaceFirst('0', '+234', $recepients->phonenumber));
-        // $sms = $AT->sms();
-        // $user = auth()->user()->name;
-        // $message = "Hi {$recepients->name}, {$user} is in an emergency situation and currently needs your help"
-        // $re
-        // $from = "USECURED";
 
-        // try{
-        //     $result = $sms->send([
-        //         'to' => $recepients,
-        //         'message' => $message,
-        //         'from' => $from
-        //     ]);
+    public function sendSMS($username, $recepients) {
 
-        //     print_r($result);
-        // } catch(Exception $e) {
-        //     return $e->getMessage();
-        // }
+        $recepient = \Illuminate\Support\Str::replaceFirst('0', '+234', $recepients->phonenumber);
+        $AT = resolve(AfricasTalking::class);
+        $sms = $AT->sms();
+        $message = "Hi {$username} is in an emergency situation and currently needs your help";
+        $from = "USECURED";
+
+        try {
+            $result = $sms->send([
+                'to' => $recepient,
+                'message' => $message,
+                'from' => $from
+            ]);
+            
+            return true;
+            // print_r($result);
+            
+        } catch (Exception $e) {
+            // return $e->getMessage();
+            return false;
+        }
+
+        return true;
+
     }
 }

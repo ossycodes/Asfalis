@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+app()->bind('example', function () {
+    return new App\Example;
+});
+
+Route::get('/tb', function () {
+     dd(app('example'), dd(app('example')));
+});

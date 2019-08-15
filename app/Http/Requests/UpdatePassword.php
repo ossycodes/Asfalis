@@ -24,6 +24,8 @@ class UpdatePassword extends FormRequest
      */
     public function rules()
     {
+        //if i dont pass token, error comes up, try and fix.
+
         return [
             'old_password' => [
                 'required',

@@ -21,12 +21,16 @@ Route::group([
 
     Route::post('/login', 'AuthController@login');
     //since i set the token TTL to null, (never giong to expire), then i don't need
-    //the logout and refresh endpoints
+    //the refresh endpoints
     Route::post('/logout', 'AuthController@logout');
     Route::post('/refresh', 'AuthController@refresh');
     Route::post('/me', 'ProfileController@show');
     Route::post('/register', 'RegisterController@store');
 
+});
+
+Route::get('/test', function() {
+    return  resolve('App\Services\GeolocationService')->getUserLocation();
 });
 
 Route::group([
@@ -37,6 +41,7 @@ Route::group([
 
 ], function ($router) {
     
+
     Route::post('/sendsms', 'EmergencyController@sendSMS');
     Route::post('/notify', 'EmergencyController@send');
     Route::post('/emergency', 'EmergencyController@notify');

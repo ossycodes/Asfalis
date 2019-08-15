@@ -15,10 +15,10 @@ class User extends JsonResource
     public function toArray($request)
     {
         return [
-            'fullname' => $this->name,
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
             'email' => $this->email,
             'phonenumber' => \Illuminate\Support\Str::replaceFirst('0', '+234', $this->phonenumber),
-            'address' => $this->address,
             'registered' => $this->created_at->diffForHumans()
         ];
     }
