@@ -30,8 +30,8 @@ class EmergencyController extends Controller
 
         // $phoneNumber = \Illuminate\Support\Str::replaceFirst('+234', '0', $phoneNumber);
 
-        // if ($text == "") {
-            $response = "END Sorry you are not registered for this service.";
+        if ($text == "") {
+            $response = "END SMS and Email has been sent to your registered emergency contacts.";
             // This is the first request. Note how we start the response with CON
             // if (!User::where('phonenumber', $phoneNumber)->exists()) {
             //     $response = "END Sorry you are not registered for this service.";
@@ -42,7 +42,7 @@ class EmergencyController extends Controller
             //     Mail::to($contact)->send(new EmergencyMail($contact->name));
             //     //send sms
             //     $this->sendSMS($user->name, \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber));
-            // }
+            }
 
             // $response = "END {$phoneNumber} SMS and Email has been sent to your registered emergency contacts.\n";
         // }

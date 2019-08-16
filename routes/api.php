@@ -38,11 +38,11 @@ Route::group([
 ], function ($router) {
     
 
-    Route::post('/send', 'EmergencyController@sendSMS');
-    
+   
+    Route::post('/emergencyviaussd', 'EmergencyController@send');
+
     //notifies the user registered emergency contacts via sms
     //and email via the mobile application
-    Route::post('/notify', 'EmergencyController@send');
     Route::post('/emergency', 'EmergencyController@notify');
     Route::patch('/profile', 'ProfileController@update');
     Route::patch('/password/update', 'UpdatePasswordController@update');
