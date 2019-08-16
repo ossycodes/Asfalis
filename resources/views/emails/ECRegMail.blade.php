@@ -1,7 +1,7 @@
 @component('mail::message')
 # Welcome to USECURED
 
-Dear {{ $emergencycontact->name }}, {{ $user->name }} registered you as an emergency contact.
+Dear {{ $emergencycontact->name }}, {{ $user->full_name }} registered you as an emergency contact.
 <br>
 Hence we would always alert or notify you via EMAIL and SMS whenever {{ $user->name }} is in danger/emergency situation.
 

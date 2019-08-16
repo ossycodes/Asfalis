@@ -26,7 +26,6 @@ Route::group([
     Route::post('/refresh', 'AuthController@refresh');
     Route::post('/me', 'ProfileController@show');
     Route::post('/register', 'RegisterController@store');
-
 });
 
 Route::group([
@@ -36,11 +35,11 @@ Route::group([
     'namespace' => 'API'
 
 ], function ($router) {
-    
 
-   
+
+    //notifies the user registered emergency contacts via sms
+    //and email via USSD
     Route::post('/emergencyviaussd', 'EmergencyController@send');
-
     //notifies the user registered emergency contacts via sms
     //and email via the mobile application
     Route::post('/emergency', 'EmergencyController@notify');
@@ -52,5 +51,4 @@ Route::group([
     Route::get('/emergencycontacts/{emergencycontacts}', 'EmergencycontactsController@show');
     Route::patch('/emergencycontacts/{emergencycontacts}', 'EmergencycontactsController@update');
     Route::delete('/emergencycontacts/{emergencycontacts}', 'EmergencycontactsController@destroy');
-
 });

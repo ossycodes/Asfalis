@@ -14,6 +14,8 @@ use App\Helpers\Customresponses;
 
 class EmergencyController extends Controller
 {
+    public $customResponse;
+    
     public function __construct(Customresponses $customResponse)
     {
         $this->middleware('jwt', ['only' => 'notify']);
@@ -31,7 +33,8 @@ class EmergencyController extends Controller
         // $phoneNumber = \Illuminate\Support\Str::replaceFirst('+234', '0', $phoneNumber);
 
         if ($text == "") {
-            $response = "END SMS and Email has been sent to your registered emergency contacts.";
+            $response = "END {$phoneNumber} {$text}";
+            // $phoneNumber = str_replace('+234', '0', '+2349023802591');
             // This is the first request. Note how we start the response with CON
             // if (!User::where('phonenumber', $phoneNumber)->exists()) {
             //     $response = "END Sorry you are not registered for this service.";
@@ -43,12 +46,9 @@ class EmergencyController extends Controller
             //     //send sms
             //     $this->sendSMS($user->name, \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber));
             }
-
             // $response = "END {$phoneNumber} SMS and Email has been sent to your registered emergency contacts.\n";
         // }
 
-        // header('Content-type: text/plain');
-        // echo $response;
         // // Echo the response back to the API
         return response($response)
             ->header('Content-Type', 'text/plain');

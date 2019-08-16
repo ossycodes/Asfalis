@@ -24,9 +24,9 @@ class RegisterEmergencycontacts extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:emergencycontacts,email',
-            'phonenumber' => 'required|digits:11|unique:emergencycontacts,phonenumber'
+            'contacts.*.name' => 'required|string',
+            'contacts.*.email' => 'required|email|unique:emergencycontacts,email',
+            'contacts.*.phonenumber' => 'required|digits:11|unique:emergencycontacts,phonenumber'
         ];
     }
 }

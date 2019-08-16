@@ -4,15 +4,19 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Resources\User;
 use Illuminate\Http\Request;
+use App\Helpers\Customresponses;
 use  App\Http\Resources\Emergencycontacts;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\RegisterEmergencycontacts;
 
 class EmergencycontactsController extends \App\Http\Controllers\Controller
 {
-    public function __construct()
+    public $customResponse;
+
+    public function __construct(Customresponses $customResponse)
     {
         $this->middleware('jwt');
+        $this->customApiResponse = $customResponse;
     }
 
     /**
@@ -34,13 +38,14 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
     public function store(RegisterEmergencycontacts $request)
     {
         if (auth()->user()->emergencycontacts()->count() === 3) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'maximum number of emergency contacts registered',
-            ], 400);
+            return $this->customApiResponse->errorBadRequest('maximum number of emergency contacts registered');
         }
-        $emergencycontact = auth()->user()->emergencycontacts()->create(request()->all());
-        return new Emergencycontacts($emergencycontact);
+        foreach (request()->all() as $emergencyContacts => $contacts) {
+            foreach ($contacts as $contact) {
+                auth()->user()->emergencycontacts()->create($contact);
+            }
+        }
+        return response()->json(Emergencycontacts::collection(auth()->user()->emergencycontacts), 201);
     }
 
     /**
