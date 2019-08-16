@@ -29,10 +29,6 @@ Route::group([
 
 });
 
-Route::get('/test', function() {
-    return  resolve('App\Services\GeolocationService')->getUserLocation();
-});
-
 Route::group([
 
     'middleware' => 'api',
@@ -42,7 +38,10 @@ Route::group([
 ], function ($router) {
     
 
-    Route::post('/sendsms', 'EmergencyController@sendSMS');
+    Route::post('/send', 'EmergencyController@sendSMS');
+    
+    //notifies the user registered emergency contacts via sms
+    //and email via the mobile application
     Route::post('/notify', 'EmergencyController@send');
     Route::post('/emergency', 'EmergencyController@notify');
     Route::patch('/profile', 'ProfileController@update');

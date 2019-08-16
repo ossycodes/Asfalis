@@ -30,7 +30,7 @@ class EmergencyController extends Controller
 
         // $phoneNumber = \Illuminate\Support\Str::replaceFirst('+234', '0', $phoneNumber);
 
-        if ($text == "") {
+        // if ($text == "") {
             $response = "END Sorry you are not registered for this service.";
             // This is the first request. Note how we start the response with CON
             // if (!User::where('phonenumber', $phoneNumber)->exists()) {
@@ -45,7 +45,7 @@ class EmergencyController extends Controller
             // }
 
             // $response = "END {$phoneNumber} SMS and Email has been sent to your registered emergency contacts.\n";
-        }
+        // }
 
         // header('Content-type: text/plain');
         // echo $response;
@@ -67,8 +67,8 @@ class EmergencyController extends Controller
             $userLocation = resolve('App\Services\GeolocationService')->getUserLocation();
 
             foreach ($emergencyContacts as $contact) {
-                // Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
-                resolve('App\Services\SMSservice')->sendSMS($user->fullName, $contact->phonenumber);
+                Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
+                // resolve('App\Services\SMSservice')->sendSMS($user->fullName, $contact->phonenumber);
             }
         } catch (\Exception $e) {
             return $this->customApiResponse->errorInternal('could not connect to host, please try again later');

@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 use Symfony\Component\HttpFoundation\Response;
 
+//refactor to be a trait to avoid passing it all the time through
+//dependency injection to classes that uses it's methods
 class Customresponses
 {
     public function okay($msg = null)
@@ -22,6 +24,30 @@ class Customresponses
         ], Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ], Response::HTTP_CREATED);
+    }
+
+    public function errorUnauthorized()
+    {
+        return  response()->json([
+            'status' => false,
+            'error' => 'Unauthorized'
+        ], Response::HTTP_UNAUTHORIZED);
+    }
+
     public function errorInternal($msg = null)
     {
         return response()->json([
@@ -33,7 +59,7 @@ class Customresponses
     public function created($msg = null)
     {
         return response()->json([
-            'status' => true,  
+            'status' => true,
             'message' => $msg
         ], Response::HTTP_CREATED);
     }

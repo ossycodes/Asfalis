@@ -9,15 +9,16 @@ use App\Http\Resources\User;
 
 class AuthController extends  \App\Http\Controllers\Controller
 {
-
+    public $customApiResponse;
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(\App\Helpers\Customresponses $customApiResponse)
     {
         $this->middleware('jwt', ['except' => ['login']]);
+        $this->customApiResponse = $customApiResponse;
     }
 
     /**
@@ -29,9 +30,9 @@ class AuthController extends  \App\Http\Controllers\Controller
     {
 
         if (!$token = auth()->attempt(request(['email', 'password']))) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return $this->customApiResponse->errorUnauthorized();
         }
-        return $this->respondWithToken($token);
+        return $this->customApiResponse->respondWithToken($token);
     }
 
     /**
