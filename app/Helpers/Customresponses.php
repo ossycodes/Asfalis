@@ -33,7 +33,7 @@ class Customresponses
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    public function respondWithToken($token)
     {
         return response()->json([
             'status' => true,
