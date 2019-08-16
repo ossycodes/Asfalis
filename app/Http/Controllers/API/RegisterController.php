@@ -10,17 +10,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends \App\Http\Controllers\Controller
 {
+    public $customApiResponse;
+
+    public function __construct(\App\Helpers\Customresponses $customApiResponse)
+    {
+        $this->customApiResponse = $customApiResponse;
+    }
    
     public function store(RegisterUser $request, User $user)
     {
         if ($user->register()) {
-            return response()->json([
-                'message' => 'registeration successful, password as been sent to your email'
-            ], Response::HTTP_CREATED);
+            return $this->customApiResponse->created('registeration successful, password as been sent to your email');
         }
-
-        return response()->json([
-            'error' => 'something went wrong'
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return $this->customApiResponse->errorInternal();
     }
 }

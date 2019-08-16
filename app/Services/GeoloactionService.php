@@ -8,18 +8,19 @@ use GuzzleHttp\Client;
 class GeolocationService
 {
     public $client;
+    protected $apiKey;
 
     public function __construct(Client $client)
     {
         $this->client =  $client;
-        $this->key = config('services.geocoder.key');
+        $this->apiKey = config('services.geocoder.key');
     }
 
     public function getUserLocation()
     {
         $query = request()->query('q');
 
-        $response = $this->client->request('GET', "https://api.opencagedata.com/geocode/v1/json?q={$query}&key={$this->key}");
+        $response = $this->client->request('GET', "https://api.opencagedata.com/geocode/v1/json?q={$query}&key={$this->apiKey}");
 
         $body = json_decode($response->getBody());
 

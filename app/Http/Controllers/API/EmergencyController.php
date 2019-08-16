@@ -67,9 +67,8 @@ class EmergencyController extends Controller
             $userLocation = resolve('App\Services\GeolocationService')->getUserLocation();
 
             foreach ($emergencyContacts as $contact) {
-                Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
-                $contact->phonenumber = \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber);
-                // $smsService = resolve('App\Services\SMSservice')->sendSMS($user->name, $contact->phonenumber);
+                // Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
+                resolve('App\Services\SMSservice')->sendSMS($user->fullName, $contact->phonenumber);
             }
         } catch (\Exception $e) {
             return $this->customApiResponse->errorInternal('could not connect to host, please try again later');
@@ -78,25 +77,4 @@ class EmergencyController extends Controller
         return $this->customApiResponse->okay('sms and email sent to emergency contacts');
     }
 
-    public function sendSMS($username, $recepient)
-    {
-        $AT = resolve(AfricasTalking::class);
-        $sms = $AT->sms();
-        $message = "Hi {$username} is in an emergency situation and currently needs your help";
-        $from = "USECURED";
-
-        try {
-            $result = $sms->send([
-                'to' => $recepient,
-                'message' => $message,
-                'from' => $from
-            ]);
-
-            // print_r($result);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        return true;
-    }
 }

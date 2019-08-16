@@ -24,6 +24,11 @@ return [
         'username' => env('SMS_USERNAME'),
     ],
 
+    'sms' => [
+        'publickey' => env('PUBLIC_KEY'),
+        'accessToken' => env('ACCESS_TOKEN'),
+    ],
+
     'ses' => [
         'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
