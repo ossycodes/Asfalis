@@ -1,5 +1,5 @@
 @component('mail::message')
-# Dear {{  {{ $user->first_name }} }}, Thank you for signing up.
+# Dear {{ $user->first_name }}, Thank you for signing up.
 
 We built USECURED to help our users curb emergency situation ASAP by reaching out to registered emergency contacts which are assumed to close friends/families of the user.
 

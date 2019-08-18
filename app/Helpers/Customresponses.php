@@ -39,7 +39,6 @@ class Customresponses
             'status' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
-            // 'expires_in' => auth()->factory()->getTTL() * 60
         ], Response::HTTP_CREATED);
     }
 
