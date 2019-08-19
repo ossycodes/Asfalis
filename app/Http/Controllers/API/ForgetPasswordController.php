@@ -15,6 +15,10 @@ class ForgetPasswordController extends \App\Http\Controllers\Controller
 
     public function store(Request $request)
     {
+        //validate request
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
         return $this->validateRequestandCreateToken();
     }
 }

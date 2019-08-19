@@ -21,6 +21,7 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfile $request)
     {
+        //work on this, update only the phonumber and phonenumber
         auth()->user()->update(request()->all());
 
         return response()->json([], Response::HTTP_NO_CONTENT);
