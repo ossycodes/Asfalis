@@ -16,7 +16,7 @@ class Emergencycontacts extends JsonResource
     {
         return [
             'id' => $this->id,
-            'fullname' => $this->name,
+            'name' => $this->name,
             'email' => $this->email,
             'phonenumber' => \Illuminate\Support\Str::replaceFirst('0', '+234', $this->phonenumber),
         ];
