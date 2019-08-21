@@ -12,9 +12,10 @@ trait userCanResetPassword
         $user = User::where('email', request('email'))->first();
 
         if (!$user) {
-            return response()->json([
-                'error' => 'email does not exist'
-            ], 400);
+            return $this->customApiResponse->errorBadRequest('email does not exist');
+            // return response()->json([
+            //     'error' => 'email does not exist'
+            // ], 400);
         }
 
         return $this->createToken($user);
@@ -23,18 +24,18 @@ trait userCanResetPassword
     public function createToken($user)
     {
         if ($user->hasResetToken()) {
-            return response()->json([
-                'error' => 'reset password link has already be sent'
-            ], 400);
+            return $this->customApiResponse->errorBadRequest('reset password link has already be sent');
         }
-        
-        //expire token after one hour
+
+        //todo: expire token after one hour
+        //add the date the token was created with 1hour,
+        //then check if it less than or equal to the current date(time)
+
         $token = $user->createResetToken();
 
+        //send user an email with the password reset link
         $user->notify(new ResetPasswordNotification($token));
 
-        return response()->json([
-            'message' => 'reset password link sent successfully'
-        ]);
+        return $this->customApiResponse->created('reset password link sent successfully');
     }
 }

@@ -19,7 +19,8 @@ class User extends JsonResource
             'lastName' => $this->last_name,
             'email' => $this->email,
             'phonenumber' => \Illuminate\Support\Str::replaceFirst('0', '+234', $this->phonenumber),
-            'registered' => $this->created_at->diffForHumans()
+            'registered' => $this->created_at->diffForHumans(),
+            'emergencycontacts' => Emergencycontacts::collection($this->whenLoaded('emergencycontacts')),
         ];
     }
 }

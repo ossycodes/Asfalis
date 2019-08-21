@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Http\Resources\User;
 use Symfony\Component\HttpFoundation\Response;
 
 //refactor to be a trait to avoid passing it all the time through
@@ -39,6 +40,7 @@ class Customresponses
             'status' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
+            'user' => new User(auth()->user()),
         ], Response::HTTP_CREATED);
     }
 

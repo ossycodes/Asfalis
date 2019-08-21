@@ -46,9 +46,10 @@ class ResetPasswordNotification extends Notification
 
         //checkout a standard reset password message
         return (new MailMessage)
-                    ->line('Password reset.')
+                    ->line('We recieved a request to reset your password')
+                    ->line('Please click the reset link below to reset your password')
                     ->action('Reset link', $passwordResetLink)
-                    ->line('Thank you for using our application!');
+                    ->line('All the best');
     }
 
     /**

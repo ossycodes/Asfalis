@@ -35,8 +35,6 @@ Route::group([
     'namespace' => 'API'
 
 ], function ($router) {
-
-
     //notifies the user registered emergency contacts via sms
     //and email via USSD
     Route::post('/emergencyviaussd', 'EmergencyController@send');
