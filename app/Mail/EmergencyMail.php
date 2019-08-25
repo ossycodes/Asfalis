@@ -20,7 +20,7 @@ class EmergencyMail extends Mailable
      *
      * @return void
      */
-    public function __construct($emergencyContactName, $userLocation)
+    public function __construct($emergencyContactName, $userLocation = null)
     {
         $this->emergencyContactName = $emergencyContactName;
         $this->user = auth()->user();

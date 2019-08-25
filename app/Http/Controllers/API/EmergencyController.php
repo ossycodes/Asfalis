@@ -15,7 +15,7 @@ use App\Helpers\Customresponses;
 class EmergencyController extends Controller
 {
     public $customResponse;
-    
+
     public function __construct(Customresponses $customResponse)
     {
         $this->middleware('jwt', ['only' => 'notify']);
@@ -34,20 +34,20 @@ class EmergencyController extends Controller
 
         if ($text == "") {
             $response = "END {$phoneNumber} {$text}";
-            // $phoneNumber = str_replace('+234', '0', '+2349023802591');
+            $phoneNumber = str_replace('+234', '0', '+2349023802591');
             // This is the first request. Note how we start the response with CON
-            // if (!User::where('phonenumber', $phoneNumber)->exists()) {
-            //     $response = "END Sorry you are not registered for this service.";
-            // } 
-            // $user =  User::where('phonenumber', $phoneNumber)->first();
-            // $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
-            // foreach ($emergencyContacts as $contact) {
-            //     Mail::to($contact)->send(new EmergencyMail($contact->name));
-            //     //send sms
-            //     $this->sendSMS($user->name, \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber));
+            if (!User::where('phonenumber', $phoneNumber)->exists()) {
+                $response = "END Sorry you are not registered for this service.";
+            }
+            $user =  User::where('phonenumber', $phoneNumber)->first();
+            $emergencyContacts =  Emergencycontacts::where($user->emergencycontacts)->get();
+            foreach ($emergencyContacts as $contact) {
+                Mail::to($contact)->send(new EmergencyMail($contact->name));
+                //send sms
+                //$this->sendSMS($user->name, \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber));
             }
             // $response = "END {$phoneNumber} SMS and Email has been sent to your registered emergency contacts.\n";
-        // }
+        }
 
         // // Echo the response back to the API
         return response($response)
@@ -57,11 +57,12 @@ class EmergencyController extends Controller
     public function notify()
     {
         $user = auth()->user();
-        $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
-
-        if (!$emergencyContacts) {
-            return $this->customApiResponse()->errorBadRequest('no emergency contact registered');
+        $emergencyContacts = $user->emergencycontacts;
+        if ($emergencyContacts->count() === 0) {
+            return $this->customApiResponse->errorBadRequest('no emergency contact registered');
         }
+        
+        $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
 
         try {
             $userLocation = resolve('App\Services\GeolocationService')->getUserLocation();
@@ -76,5 +77,4 @@ class EmergencyController extends Controller
 
         return $this->customApiResponse->okay('sms and email sent to emergency contacts');
     }
-
 }

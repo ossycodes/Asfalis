@@ -20,7 +20,6 @@ class ResetPasswordNotification extends Notification
     public function __construct($passwordResetToken)
     {
         $this->passwordResetToken = $passwordResetToken;
-        
     }
 
     /**
@@ -46,10 +45,20 @@ class ResetPasswordNotification extends Notification
 
         //checkout a standard reset password message
         return (new MailMessage)
-                    ->line('We recieved a request to reset your password')
-                    ->line('Please click the reset link below to reset your password')
-                    ->action('Reset link', $passwordResetLink)
-                    ->line('All the best');
+
+            ->line('A request to reset your password has been made. If you did not make this request, simply ignore this email. If you did make this request just click the link below:')
+            ->action('Reset link', $passwordResetLink)
+            ->line('If the above URL does not work, try copying and pasting it into your browser. If you continue to experience problems please feel free to contact us.');
+
+            //after reseting password inform the user
+            //             Hi Osaigbovo,
+
+            // The password for your Cloudinary account - osaigbovoemmanuel1@gmail.com - was recently changed. 
+            // If you did not make this change, please reset your password to get back into your account. 
+
+            // Thanks, 
+            // The Cloudinary team. 
+
     }
 
     /**
