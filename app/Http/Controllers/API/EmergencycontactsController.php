@@ -37,6 +37,9 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function store(RegisterEmergencycontacts $request)
     {
+        if(auth()->user()->emergencycontacts()->count() === 2 && count(request()->contacts) === 2) {
+            return $this->customApiResponse->errorBadRequest('only 3 emergency contacts can be registered');
+        }
         if (auth()->user()->emergencycontacts()->count() === 3) {
             return $this->customApiResponse->errorBadRequest('maximum number of emergency contacts registered');
         }
@@ -45,7 +48,11 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
                 auth()->user()->emergencycontacts()->create($contact);
             }
         }
-        return response()->json(Emergencycontacts::collection(auth()->user()->emergencycontacts), 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'emergencycontacts created successfully'
+        ], Response::HTTP_CREATED);
+        // return response()->json(Emergencycontacts::collection(auth()->user()->emergencycontacts), 201);
     }
 
     /**
