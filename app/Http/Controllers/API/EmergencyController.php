@@ -11,6 +11,7 @@ use AfricasTalking\SDK\AfricasTalking;
 use App\Http\Resources\Emergencycontacts;
 use Symfony\Component\HttpFoundation\Response;
 use App\Helpers\Customresponses;
+use App\Http\Requests\EmergencyRequest;
 
 class EmergencyController extends Controller
 {
@@ -54,19 +55,19 @@ class EmergencyController extends Controller
             ->header('Content-Type', 'text/plain');
     }
 
-    public function notify()
+    public function notify(EmergencyRequest $request)
     {
         $user = auth()->user();
         $emergencyContacts = $user->emergencycontacts;
         if ($emergencyContacts->count() === 0) {
             return $this->customApiResponse->errorBadRequest('no emergency contact registered');
         }
-        
+
         $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
 
         try {
             $userLocation = resolve('App\Services\GeolocationService')->getUserLocation();
-
+            
             foreach ($emergencyContacts as $contact) {
                 Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
                 // resolve('App\Services\SMSservice')->sendSMS($user->fullName, $contact->phonenumber);

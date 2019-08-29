@@ -4,7 +4,6 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 
-
 class GeolocationService
 {
     public $client;
@@ -15,11 +14,13 @@ class GeolocationService
         $this->client =  $client;
         $this->apiKey = config('services.geocoder.key');
     }
-
+    
     public function getUserLocation()
     {
-        $query = request()->query('q');
-
+        $latitude = request('lattitude');
+        $longitude = request('longitude');
+        $query = "{$latitude }+{$longitude}";
+      
         $response = $this->client->request('GET', "https://api.opencagedata.com/geocode/v1/json?q={$query}&key={$this->apiKey}");
 
         $body = json_decode($response->getBody());
