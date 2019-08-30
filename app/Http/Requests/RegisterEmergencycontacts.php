@@ -25,7 +25,7 @@ class RegisterEmergencycontacts extends FormRequest
     {
         return [
             'contacts.*.name' => 'required|string',
-            'contacts.*.email' => 'required|email|unique:emergencycontacts,email|unique:users,email',
+            'contacts.*.email' => 'required|email|unique:emergencycontacts,email|unique:users',
             'contacts.*.phonenumber' => 'required|digits:11|unique:emergencycontacts,phonenumber'
         ];
     }
