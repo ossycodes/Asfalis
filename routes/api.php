@@ -30,6 +30,15 @@ Route::group([
 
 Route::group([
 
+    'prefix' => 'v1',
+    'namespace' => 'API'
+
+], function ($router) {
+    Route::get('/emergencylines', 'EmergencylineController@index');
+});
+
+Route::group([
+
     'middleware' => 'api',
     'prefix' => 'v1',
     'namespace' => 'API'
