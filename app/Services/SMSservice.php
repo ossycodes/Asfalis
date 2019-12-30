@@ -12,47 +12,36 @@ class SMSservice
     protected $accessToken;
     protected $messageID;
 
-    const BASEURL = "https://jusibe.com/smsapi/";
-
     public function __construct()
     {
-        $this->publicKey = config('services.sms.publickey');
-        $this->accessToken = config('services.sms.accessToken');
-        $this->initializeClient();
-        // $this->client = new Client(['base_uri' => self::BASEURL]);
-    }
-
-    /**
-     * Instantiate Guzzle Client and prepare request for http operations
-     * @return none
-     */
-    private function initializeClient()
-    {
-        $this->client = new Client(['base_uri' => self::BASEURL]);
+        $this->smsUsername = "Usecured"; //config('services.sms.username');
+        $this->smsPassword =  "08027332873"; //config('services.sms.pass');
     }
 
 
 
-    public function sendSMS($username, $emergencyContactPhonenumber)
+    public function sendSMS($username, $emergencyContactPhonenumbers)
     {
-
-        $data =  [
-            'to' => $emergencyContactPhonenumber,
-            'from' => 'USECURED',
-            'message' => "Hi {$username} is in an emergency situation and currently needs your help"
-        ];
-
-        $this->response = $this->client->request('POST', 'send_sms', [
-            'auth' => [$this->publicKey, $this->accessToken],
-            'form_params' => $data
-        ]);
-
-        $this->messageID = $this->getResponse()->message_id;
-
-        if($this->checkDeliveryStatus()) {
-            return true;
+        // dd($this->smsUsername, $this->smsPassword);
+        $emergencyContactPhonenumbers = implode(",", $emergencyContactPhonenumbers);
+        $emergencyMessage = "Hi {$username} is in an emergency situation and currently needs your help";
+        $url = "http://www.smsdepot.com.ng/sendsms.php?user={$this->smsUsername}&password={$this->smsPassword}&mobile={$emergencyContactPhonenumbers}&message={$emergencyMessage}&senderid=USECURED";
+        
+        // ?user=omomeji&password=123456&mobile=08012345678,080xxxxxxxx&group_id=1,2&senderid=King Adu&message=hi, happy birthday!&unicode=1&schedule=
+        $client = new Client();
+        if(!app()->isLocal()) {
+            $res = $client->request('POST', $url);
         }
-         return false;   
+        dump($res->getStatusCode());
+
+        return true;
+
+        // $this->messageID = $this->getResponse()->message_id;
+
+        // if($this->checkDeliveryStatus()) {
+        //     return true;
+        // }
+        //  return false;   
 
 
         // $recepient = \Illuminate\Support\Str::replaceFirst('0', '+234', $recepients->phonenumber);

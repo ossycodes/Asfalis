@@ -5,13 +5,17 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfile;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends Controller
 {
-    public function __construct()
+    public $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepoInterface)
     {
-        return $this->middleware('auth');
+        $this->middleware('auth');
+        $this->userRepo = $userRepoInterface;
     }
 
     /**
@@ -21,9 +25,8 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfile $request)
     {
-        //work on this, update only the phonumber and phonenumber
-        auth()->user()->update(request()->all());
-
+        //you can't update email oh!!!
+        $this->userRepo->updateProfile();
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
@@ -34,6 +37,6 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        return new \App\Http\Resources\User(auth()->user());
+        return $this->userRepo->getAuthenticatedUser();
     }
 }

@@ -27,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(AfricasTalking::class, function () {
-            return new AfricasTalking(config('services.africastalking.username'), config('services.africastalking.apiKey'));
-        });
+        $this->app->register(CustomServiceProvider::class);
     }
 }

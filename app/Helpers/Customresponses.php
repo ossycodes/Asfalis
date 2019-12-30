@@ -27,13 +27,6 @@ class Customresponses
         ], Response::HTTP_BAD_REQUEST);
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function respondWithToken($token)
     {
         return response()->json([

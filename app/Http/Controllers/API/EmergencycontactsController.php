@@ -6,17 +6,20 @@ use App\Http\Resources\User;
 use Illuminate\Http\Request;
 use App\Helpers\Customresponses;
 use  App\Http\Resources\Emergencycontacts;
+use App\Http\Requests\UpdateEmergencyContacts;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\RegisterEmergencycontacts;
+use App\Repositories\Contracts\EmergencyContactsRepositoryInterface;
 
 class EmergencycontactsController extends \App\Http\Controllers\Controller
 {
     public $customResponse;
 
-    public function __construct(Customresponses $customResponse)
+    public function __construct(Customresponses $customResponse, EmergencyContactsRepositoryInterface $emergencyContactsRepositoryInterface)
     {
         $this->middleware('jwt');
         $this->customApiResponse = $customResponse;
+        $this->EmergencyContactsRepo = $emergencyContactsRepositoryInterface;
     }
 
     /**
@@ -26,7 +29,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        return Emergencycontacts::collection(auth()->user()->emergencycontacts);
+        return Emergencycontacts::collection($this->EmergencyContactsRepo->getEmergencyContactsForAuthenticatedUser());
     }
 
     /**
@@ -37,22 +40,15 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function store(RegisterEmergencycontacts $request)
     {
-        if(auth()->user()->emergencycontacts()->count() === 2 && count(request()->contacts) === 2) {
+        $emergencyContactsCount = auth()->user()->emergencycontacts()->count();
+        if ($emergencyContactsCount === 2 && count(request()->contacts) === 2) {
             return $this->customApiResponse->errorBadRequest('only 3 emergency contacts can be registered');
         }
-        if (auth()->user()->emergencycontacts()->count() === 3) {
+        if ($emergencyContactsCount === 3) {
             return $this->customApiResponse->errorBadRequest('maximum number of emergency contacts registered');
         }
-        foreach (request()->all() as $emergencyContacts => $contacts) {
-            foreach ($contacts as $contact) {
-                auth()->user()->emergencycontacts()->create($contact);
-            }
-        }
-        return response()->json([
-            'status' => true,
-            'message' => 'emergencycontacts created successfully'
-        ], Response::HTTP_CREATED);
-        // return response()->json(Emergencycontacts::collection(auth()->user()->emergencycontacts), 201);
+        $this->EmergencyContactsRepo->createEmergencyContacts();
+        return $this->customApiResponse->created("emergencycontacts created successfully");
     }
 
     /**
@@ -61,9 +57,9 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      * @param  \App\Emergencycontacts  $emergencycontacts
      * @return \Illuminate\Http\Response
      */
-    public function show(\App\Emergencycontacts $emergencycontacts)
+    public function show($emergencyContactId)
     {
-        return response()->json(new Emergencycontacts($emergencycontacts), 200);
+        return response()->json($this->EmergencyContactsRepo->getEmergencyContact($emergencyContactId, 200));
     }
 
     /**
@@ -73,9 +69,9 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      * @param  \App\Emergencycontacts  $emergencycontacts
      * @return \Illuminate\Http\Response
      */
-    public function update(RegisterEmergencycontacts $request, \App\Emergencycontacts $emergencycontacts)
+    public function update(UpdateEmergencyContacts $request, $emergencyContactId)
     {
-        $emergencycontacts->update(request()->all());
+        $this->EmergencyContactsRepo->updateEmergencyContact($emergencyContactId);
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
@@ -85,9 +81,9 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      * @param  \App\Emergencycontacts  $emergencycontacts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(\App\Emergencycontacts $emergencycontacts)
+    public function destroy($emergencycontactId)
     {
-        $emergencycontacts->delete();
+        $this->EmergencyContactsRepo->deleteEmergencyContact($emergencycontactId);
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
