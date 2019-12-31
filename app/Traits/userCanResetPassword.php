@@ -4,18 +4,17 @@ namespace App\Traits;
 
 use App\User;
 use App\Notifications\ResetPasswordNotification;
+use App\Repositories\Contracts\UserRepositoryInterface;
 
 trait userCanResetPassword
 {
-    public function validateRequestandCreateToken()
+
+    public function validateRequestandCreateToken(UserRepositoryInterface $userRepo)
     {
-        $user = User::where('email', request('email'))->first();
+        $user = $userRepo->getUserByEmail(request('email'));
 
         if (!$user) {
             return $this->customApiResponse->errorBadRequest('email does not exist');
-            // return response()->json([
-            //     'error' => 'email does not exist'
-            // ], 400);
         }
 
         return $this->createToken($user);

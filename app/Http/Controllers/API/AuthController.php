@@ -46,16 +46,4 @@ class AuthController extends  \App\Http\Controllers\Controller
         auth()->logout();
         return $this->customApiResponse->okay('successfully logged out');
     }
-
-    /**
-     * Refresh a token.
-     *won't be using since i have set the token never to expire
-     * @return \Illuminate\Http\JsonResponse
-     */
-    // public function refresh()
-    // {
-    //     return $this->respondWithToken(auth()->refresh());
-    // }
-
-
 }

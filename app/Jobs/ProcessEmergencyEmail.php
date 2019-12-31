@@ -35,7 +35,7 @@ class ProcessEmergencyEmail implements ShouldQueue
     {
         $emergencyContacts = $this->user->emergencycontacts;
         foreach ($emergencyContacts as $contact) { //move this to job handle method
-            // Mail::to($contact)->send(new EmergencyMail($contact->name, $this->user->full_name, "USSD")); //move this to job handle method
+            Mail::to($contact)->send(new EmergencyMail($contact->name, $this->user->full_name, "USSD")); //move this to job handle method
             //send sms
             //$this->sendSMS($user->name, \Illuminate\Support\Str::replaceFirst('0', '+234', $contact->phonenumber));
             // }
