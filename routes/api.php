@@ -11,6 +11,9 @@
 |
 */
 
+use App\Components\Sms\SmsManager;
+use App\Components\Sms\Facades\SMS;
+
 Route::group([
 
     'middleware' => 'api',
@@ -22,7 +25,7 @@ Route::group([
     Route::post('/login', 'AuthController@login');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/refresh', 'AuthController@refresh');
-    Route::post('/me', 'ProfileController@show');
+    Route::get('/me', 'ProfileController@show');
     Route::post('/register', 'RegisterController@store');
 });
 
@@ -32,7 +35,7 @@ Route::group([
     'namespace' => 'API'
 
 ], function ($router) {
-    Route::get('/emergencylines', 'EmergencylineController@index');
+    Route::get('/emergencyagencies', 'EmergencylineController@index');
 });
 
 Route::group([
@@ -49,7 +52,13 @@ Route::group([
     Route::post('/password/reset', 'ForgetPasswordController@store');
     Route::post('/emergencycontacts', 'EmergencycontactsController@store');
     Route::get('/emergencycontacts', 'EmergencycontactsController@index');
-    Route::get('/emergencycontacts/{id}', 'EmergencycontactsController@show');
+    Route::get('/emergencycontacts/{id}', 'EmergencycontactsController@show')->name("emergencycontact.show");
     Route::patch('/emergencycontacts/{emergencycontacts}', 'EmergencycontactsController@update');
     Route::delete('/emergencycontacts/{id}', 'EmergencycontactsController@destroy');
+    Route::post('testdrivers', function (SmsManager $sms) {
+        // dump($sms->send());
+        // dump($sms->channel('Africastalking')->send());
+        dump(SMS::to('+2348034711579')->content('Test Message from Stay Safe Scheme')->send());
+    });
 });
+

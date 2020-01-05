@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Resources\User;
 use Illuminate\Http\Request;
-use App\Helpers\Customresponses;
 use  App\Http\Resources\Emergencycontacts;
 use App\Http\Requests\UpdateEmergencyContacts;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +14,9 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
 {
     public $customResponse;
 
-    public function __construct(Customresponses $customResponse, EmergencyContactsRepositoryInterface $emergencyContactsRepositoryInterface)
+    public function __construct(EmergencyContactsRepositoryInterface $emergencyContactsRepositoryInterface)
     {
         $this->middleware('jwt');
-        $this->customApiResponse = $customResponse;
         $this->EmergencyContactsRepo = $emergencyContactsRepositoryInterface;
     }
 
@@ -29,7 +27,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        return Emergencycontacts::collection($this->EmergencyContactsRepo->getEmergencyContactsForAuthenticatedUser());
+        return $this->respondWithData($this->EmergencyContactsRepo->getEmergencyContactsForAuthenticatedUser());
     }
 
     /**
@@ -40,15 +38,15 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function store(RegisterEmergencycontacts $request)
     {
-        $emergencyContactsCount = auth()->user()->emergencycontacts()->count();
+        $emergencyContactsCount = $this->EmergencyContactsRepo->getAuthenticatedUserEmergencyContactsCount();
         if ($emergencyContactsCount === 2 && count(request()->contacts) === 2) {
-            return $this->customApiResponse->errorBadRequest('only 3 emergency contacts can be registered');
+            return $this->errorBadRequest('only 3 emergency contacts can be registered');
         }
         if ($emergencyContactsCount === 3) {
-            return $this->customApiResponse->errorBadRequest('maximum number of emergency contacts registered');
+            return $this->errorBadRequest('maximum number of emergency contacts registered');
         }
         $this->EmergencyContactsRepo->createEmergencyContacts();
-        return $this->customApiResponse->created("emergencycontacts created successfully");
+        return $this->created("emergencycontacts created successfully");
     }
 
     /**
@@ -59,7 +57,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function show($emergencyContactId)
     {
-        return response()->json($this->EmergencyContactsRepo->getEmergencyContact($emergencyContactId, 200));
+        return $this->respondWithData($this->EmergencyContactsRepo->getEmergencyContact($emergencyContactId));
     }
 
     /**
@@ -72,7 +70,7 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
     public function update(UpdateEmergencyContacts $request, $emergencyContactId)
     {
         $this->EmergencyContactsRepo->updateEmergencyContact($emergencyContactId);
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 
     /**
@@ -84,6 +82,6 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
     public function destroy($emergencycontactId)
     {
         $this->EmergencyContactsRepo->deleteEmergencyContact($emergencycontactId);
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 }

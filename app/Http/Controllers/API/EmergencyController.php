@@ -43,13 +43,15 @@ class EmergencyController extends Controller
         } else if ($text) {
             $response = "END Your password is " . $text;
           
-            //TODO: ask user for location details
+            //TODO: ask user for location
 
             $user = $this->userRepo->getUserWithPhonenumberAndPassword($phoneNumber, $text);
            
             if ($user) {
                
+                //send sms in background.
                 // ProcessSMS::dispatch($user);
+                //send email in background? maybe.
                 ProcessEmergencyEmail::dispatch($user);
                
                 $response = "END SMS and Email has been sent to your registered emergency contacts.\n";
@@ -67,6 +69,7 @@ class EmergencyController extends Controller
     public function emergency(EmergencyRequest $request)
     {
 
+        // ProcessEmergencyEmail::dispatch(auth()->user());
         //Responsible for sending emergency sms via mobile application
         // $user = auth()->user();
         // $emergencyContacts = $user->emergencycontacts;

@@ -8,10 +8,12 @@ use App\Http\Controllers\Controller;
 class ResetPasswordController extends Controller
 {
     public function update() {
+        //validate request
+        
         // reset password here
     }
 
     public function checkToken() {
-        //check if token as expired here
+        //check if token has expired here
     }
 }

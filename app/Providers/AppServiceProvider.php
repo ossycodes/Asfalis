@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use GuzzleHttp\Client;
-use AfricasTalking\SDK\AfricasTalking;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-//use AfricasTalking\SDK\AfricasTalking;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(CustomServiceProvider::class);
+        $this->app->register(SmsServiceProvider::class);
     }
 }

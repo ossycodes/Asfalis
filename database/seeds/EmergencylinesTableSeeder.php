@@ -12,6 +12,7 @@ class EmergencylinesTableSeeder extends Seeder
      */
     public function run()
     {
+        //change model to emergencyAgency
         collect([
             [
                 'name' => 'Inspector General Of Police',
@@ -100,7 +101,7 @@ class EmergencylinesTableSeeder extends Seeder
                 'telephone_number' => '01-4931260, 01-4978899'
             ],
             [
-                'name' => 'Violation ofGirls and Women help line',
+                'name' => 'Violation of Girls and Women help line',
                 'description' => '',
                 'telephone_number' => '0800072732255'
             ],

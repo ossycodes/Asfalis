@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPasswordNotification extends Notification
+class ResetPasswordNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -50,14 +50,14 @@ class ResetPasswordNotification extends Notification
             ->action('Reset link', $passwordResetLink)
             ->line('If the above URL does not work, try copying and pasting it into your browser. If you continue to experience problems please feel free to contact us.');
 
-            //after reseting password inform the user
-            //             Hi Osaigbovo,
+        //after reseting password inform the user
+        //             Hi Osaigbovo,
 
-            // The password for your Cloudinary account - osaigbovoemmanuel1@gmail.com - was recently changed. 
-            // If you did not make this change, please reset your password to get back into your account. 
+        // The password for your Cloudinary account - osaigbovoemmanuel1@gmail.com - was recently changed. 
+        // If you did not make this change, please reset your password to get back into your account. 
 
-            // Thanks, 
-            // The Cloudinary team. 
+        // Thanks, 
+        // The Cloudinary team. 
 
     }
 

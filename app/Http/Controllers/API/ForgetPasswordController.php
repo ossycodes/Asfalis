@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\Customresponses;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\userCanResetPassword;
 use App\Notifications\ResetPasswordNotification;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgetPasswordController extends \App\Http\Controllers\Controller
 {
     use userCanResetPassword;
+    public $userRepo;
 
-    public $customApiResponse;
-
-    public function __construct(Customresponses $customApiResponse)
+    public function __construct(UserRepositoryInterface $userRepo)
     {
-        $this->customApiResponse = $customApiResponse;
+        $this->userRepo = $userRepo;
     }
 
     public function store(Request $request)

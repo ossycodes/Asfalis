@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Emergencyline as Emergencylines;
-use App\Http\Resources\Emergencyline;
+use App\Repositories\Contracts\EmergencylineInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmergencylineController extends  \App\Http\Controllers\Controller
 {
+
+    public $emergencyAgencyRepo;
+
+    public function __construct(EmergencylineInterface $emergencyAgencyRepo)
+    {
+        $this->emergencyAgencyRepo = $emergencyAgencyRepo;
+    }
+
     public function index()
     {
-        return response()->json(Emergencyline::collection(Emergencylines::all()), Response::HTTP_OK);
+        //
+        return $this->respondWithData($this->emergencyAgencyRepo->getAllEmergencyAgencies());
     }
 }

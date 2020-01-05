@@ -10,9 +10,10 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class EloquentEmergencyContactsRepository implements EmergencyContactsRepositoryInterface
 {
-    public function getEmergencyContactsForAuthenticatedUser(): Collection
+    public function getEmergencyContactsForAuthenticatedUser()
     {
-        return auth()->user()->emergencycontacts;
+        // return auth()->user()->emergencycontacts;
+        return Emergencycontacts::collection(auth()->user()->emergencycontacts);
     }
 
     protected function fetchEmergencyContact($emergencyContactId)
@@ -45,5 +46,10 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
     {
         $emergencyContact = $this->fetchEmergencyContact($emergencyContactId);
         return $emergencyContact->delete();
+    }
+
+    public function getAuthenticatedUserEmergencyContactsCount()
+    {
+        return auth()->user()->emergencycontacts()->count();
     }
 }

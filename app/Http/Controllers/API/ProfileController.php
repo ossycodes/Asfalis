@@ -27,7 +27,7 @@ class ProfileController extends Controller
     {
         //you can't update email oh!!!
         $this->userRepo->updateProfile();
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 
     /**
@@ -37,6 +37,6 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        return $this->userRepo->getAuthenticatedUser();
+        return $this->respondWithData($this->userRepo->getAuthenticatedUser());
     }
 }

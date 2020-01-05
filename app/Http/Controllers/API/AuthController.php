@@ -32,7 +32,8 @@ class AuthController extends  \App\Http\Controllers\Controller
         if (!$token = auth()->attempt(request(['email', 'password']))) {
             return $this->customApiResponse->errorUnauthorized();
         }
-        return $this->customApiResponse->respondWithToken($token);
+        return $this->respondWithToken($token);
+        // return $this->customApiResponse->respondWithToken($token);
     }
 
     /**
@@ -44,6 +45,7 @@ class AuthController extends  \App\Http\Controllers\Controller
     public function logout()
     {
         auth()->logout();
-        return $this->customApiResponse->okay('successfully logged out');
+        return $this->okay('successfully logged out');
+        // return $this->customApiResponse->okay('successfully logged out');
     }
 }
