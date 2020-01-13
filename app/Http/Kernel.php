@@ -42,6 +42,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            'json.api.headers',
         ],
     ];
 
@@ -61,5 +62,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'jwt' => \App\Http\Middleware\JWT::class,
+        'json.api.headers' => \App\Http\Middleware\EnsureCorrectAPIHeaders::class
     ];
 }
