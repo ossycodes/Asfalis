@@ -24,9 +24,9 @@ class RegisterEmergencycontacts extends FormRequest
     public function rules()
     {
         return [
-            'contacts.*.name' => 'required|string',
-            'contacts.*.email' => 'required|email|unique:emergencycontacts,email|unique:users',
-            'contacts.*.phonenumber' => 'required|digits:11|unique:emergencycontacts,phonenumber'
+            'emergencycontacts.*.name' => 'required|string',
+            'emergencycontacts.*.email' => 'required|email|unique:emergencycontacts,email|unique:users',
+            'emergencycontacts.*.phonenumber' => 'required|digits:11|unique:emergencycontacts,phonenumber'
         ];
     }
 
@@ -38,8 +38,9 @@ class RegisterEmergencycontacts extends FormRequest
     public function messages()
     {
         return [
-            'contacts.*.email.unique' => 'emergencycontact email is already registered',
-            'contacts.*.phonenumber.unique'  => 'emergencycontact phonenumber is already registered',
+            'emergencycontacts.*.email.unique' => 'emergencycontact email is already registered',
+            'emergencycontacts.*.phonenumber.unique'  => 'emergencycontact phonenumber is already registered',
+
         ];
     }
 }

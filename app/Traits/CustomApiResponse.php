@@ -10,8 +10,9 @@ trait CustomApiresponse
     public function okay($msg = null)
     {
         return response()->json([
-            'status' => true,
-            'message' => $msg ?? 'okay'
+            'data' => [
+                'title' => $msg ?? 'okay'
+            ]
         ], Response::HTTP_OK);
     }
 
@@ -31,18 +32,20 @@ trait CustomApiresponse
     public function errorBadRequest($msg = null)
     {
         return response()->json([
-            'status' => false,
-            'error' => $msg ?? 'bad request'
+            'error' => [
+                'title' => $msg ?? 'bad request'
+            ]
         ], Response::HTTP_BAD_REQUEST);
     }
 
     public function respondWithToken($token)
     {
         return response()->json([
-            'status' => true,
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'user' => new User(auth()->user()),
+            'data' => [
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ]
         ], Response::HTTP_CREATED);
     }
 
@@ -65,8 +68,9 @@ trait CustomApiresponse
     public function created($msg = null)
     {
         return response()->json([
-            'status' => true,
-            'message' => $msg
+            'data' => [
+                'message' => $msg
+            ]
         ], Response::HTTP_CREATED);
     }
 
@@ -79,9 +83,9 @@ trait CustomApiresponse
      * }
      */
 
-     /**
-      * public function emergencyContactUpdated() {
-      *    return new Emergencycontacts($emergencyContact);
-      *}
-      */
+    /**
+     * public function emergencyContactUpdated() {
+     *    return new Emergencycontacts($emergencyContact);
+     *}
+     */
 }

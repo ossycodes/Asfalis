@@ -37,6 +37,6 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        return $this->respondWithData($this->userRepo->getAuthenticatedUser());
+        return $this->userRepo->getAuthenticatedUser();
     }
 }

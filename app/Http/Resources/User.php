@@ -24,13 +24,26 @@ class User extends JsonResource
             'id' => (string) $this->id,
             'type' => 'users',
             'attributes' => [
-                'firstName' => $this->first_name,
-                'lastName' => $this->last_name,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
                 'email' => $this->email,
-                'phonenumber' => \Illuminate\Support\Str::replaceFirst('0', '+234', $this->phonenumber),
+                'phone_number' => \Illuminate\Support\Str::replaceFirst('0', '+234', $this->phonenumber),
                 'registered' => $this->created_at->diffForHumans(),
-                'emergencycontacts' => Emergencycontacts::collection($this->whenLoaded('emergencycontacts')),
-            ]
+                //'emergencycontacts' => Emergencycontacts::collection($this->whenLoaded('emergencycontacts')),
+            ],
+            'relationships' => [
+                'emergencycontacts' => [
+                    'links' => [
+                        'self' => route(
+                            'users.relationships.emergencycontacts',
+                            ['id' => $this->id]
+                        ),
+                        'related' => route(
+                            'user.emergencycontacts'
+                        ),
+                    ],
+                ]
+            ],
 
         ];
     }

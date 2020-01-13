@@ -35,6 +35,7 @@ class ProcessSMS implements ShouldQueue
         $emergencyContacts = $this->user->emergencycontacts;
         $pluckedPhonenumbers = $emergencyContacts->pluck("phonenumber");
         $emergencyContactPhonenumbers = $pluckedPhonenumbers->all();
-        resolve('App\Services\SMSservice')->sendSMS($this->user->fullName, $emergencyContactPhonenumbers);
+        // resolve('App\Services\SMSservice')->sendSMS($this->user->fullName, $emergencyContactPhonenumbers);
+        // dump(SMS::to('+2348034711579')->content('Test Message from Stay Safe Scheme')->send());
     }
 }

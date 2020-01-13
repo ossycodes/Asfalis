@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Support\Facades\Auth;
+use Exception;
+use App\Http\Resources\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginUser;
-use App\Http\Resources\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class AuthController extends  \App\Http\Controllers\Controller
 {
@@ -30,7 +32,9 @@ class AuthController extends  \App\Http\Controllers\Controller
     {
 
         if (!$token = auth()->attempt(request(['email', 'password']))) {
-            return $this->customApiResponse->errorUnauthorized();
+            // throw 'UnauthorizedException';
+            throw new UnauthorizedException("not authenticated");
+            // return $this->customApiResponse->errorUnauthorized();
         }
         return $this->respondWithToken($token);
         // return $this->customApiResponse->respondWithToken($token);

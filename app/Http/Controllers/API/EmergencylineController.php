@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EmergencylineController extends  \App\Http\Controllers\Controller
 {
-
     public $emergencyAgencyRepo;
 
     public function __construct(EmergencylineInterface $emergencyAgencyRepo)
@@ -18,7 +17,7 @@ class EmergencylineController extends  \App\Http\Controllers\Controller
 
     public function index()
     {
-        //
-        return $this->respondWithData($this->emergencyAgencyRepo->getAllEmergencyAgencies());
+        // return $this->respondWithData($this->emergencyAgencyRepo->getAllEmergencyAgencies());
+        return $this->emergencyAgencyRepo->getAllEmergencyAgencies();
     }
 }

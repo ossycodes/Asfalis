@@ -53,10 +53,10 @@ class SmsManager extends Manager
     protected function createTwilioClient()
     {
         return new TwilioClient(
-            "ACd5943a291ddcee281038d98dac05643e",
-            "055e5dc89913c8aafaf38b614e6032b6"
-            // $this->app['config']['sms.twilio.key'],
-            // $this->app['config']['sms.twilio.secret']
+            // "ACd5943a291ddcee281038d98dac05643e",
+            // "055e5dc89913c8aafaf38b614e6032b6"
+            $this->app['config']['sms.twilio.key'],
+            $this->app['config']['sms.twilio.secret']
         );
     }
 

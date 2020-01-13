@@ -4,6 +4,7 @@ namespace App\Repositories\Concretes;
 
 use App\Emergencycontacts as AppEmergencycontacts;
 use App\Http\Resources\Emergencycontacts;
+use App\Http\Resources\EmergencycontactsCollection;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\EmergencyContactsRepositoryInterface;
 use Illuminate\Http\Resources\Json\Resource;
@@ -12,8 +13,8 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
 {
     public function getEmergencyContactsForAuthenticatedUser()
     {
-        // return auth()->user()->emergencycontacts;
-        return Emergencycontacts::collection(auth()->user()->emergencycontacts);
+        // return Emergencycontacts::collection(auth()->user()->emergencycontacts);
+        return new EmergencycontactsCollection(auth()->user()->emergencycontacts);
     }
 
     protected function fetchEmergencyContact($emergencyContactId)
@@ -29,11 +30,33 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
 
     public function createEmergencyContacts()
     {
-        foreach (request()->all() as $emergencyContacts => $contacts) {
-            foreach ($contacts as $contact) {
-                return auth()->user()->emergencycontacts()->create($contact);
-            }
-        }
+        //omo work on this brah
+        //expecting the attributes to be stored in data.attributes
+        //add location in response header
+
+        // $book = Book::create([
+        // 'title' => $request->input('data.attributes.title'),
+        // 'description' => $request->input('data.attributes.
+        // description'),
+        // 'publication_year' => $request->input('data.attributes.
+        // publication_year'),
+        // ]);
+        // return (new BooksResource($book))
+        // ->response()
+        // ->header('Location', route('books.show', [
+        // 'book' => $book,
+        // ]));
+
+        $emergencyContacts = request()->toArray()["emergencycontacts"];
+        return auth()->user()->emergencycontacts()->createMany($emergencyContacts);
+
+        //fvck me, refactored from this unneccessary looping below to the above use of createMany
+
+        // foreach (request()->all() as $emergencyContacts => $contacts) {
+        //     foreach ($contacts as $contact) {
+        //          return auth()->user()->emergencycontacts()->create($contact);
+        //     }
+        // }
     }
 
     public function updateEmergencyContact($emergencyContactId)
