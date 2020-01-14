@@ -16,3 +16,9 @@ Route::get('/', function () {
 });
 
 
+Route::get('/te', function () {
+    $text = "1*ksjsksjskjsks";
+    [$service, $location] = explode("*", $text);
+    
+    return $location;
+});

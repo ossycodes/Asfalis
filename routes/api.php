@@ -47,6 +47,7 @@ Route::group([
 ], function ($router) {
     Route::post('/ussd', 'EmergencyController@ussd');
     Route::post('/emergency', 'EmergencyController@emergency');
+    Route::post('/ussd/notifyemergencyagencies', 'EmergencyController@ussdNotifyEmergencyagencies');
     Route::patch('/profile', 'ProfileController@update');
     Route::patch('/password/update', 'UpdatePasswordController@update');
     Route::post('/password/reset', 'ForgetPasswordController@store');

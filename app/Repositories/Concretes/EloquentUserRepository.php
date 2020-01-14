@@ -30,7 +30,8 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function getUserWithPhonenumber($phoneNumber)
     {
-        return User::where('phonenumber', $phoneNumber)->first();
+        $formatedPhoneNumber = $this->formatPhonenumber($phoneNumber);
+        return User::where('phonenumber', $formatedPhoneNumber)->first();
     }
 
     public function formatPhonenumber($phoneNumber) {
@@ -39,8 +40,8 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function getUserWithPhonenumberAndPassword($phoneNumber, $password)
     {
-        $formatedPhoneNumber = $this->formatPhonenumber($phoneNumber);
-        $user = $this->getUserWithPhonenumber($formatedPhoneNumber);
+        // $formatedPhoneNumber = $this->formatPhonenumber($phoneNumber);
+        $user = $this->getUserWithPhonenumber($phoneNumber);
         if (Hash::check($password, $user->password)) {
             return $user;
         } else {

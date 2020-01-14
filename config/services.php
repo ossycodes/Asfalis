@@ -49,19 +49,26 @@ return [
         'key' => env('GEOCODER_KEY')
     ],
 
+    'twitter' => [
+        'consumer_key'    => env('TWITTER_CONSUMER_KEY'),
+        'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
+        'access_token'    => env('TWITTER_ACCESS_TOKEN'),
+        'access_secret'   => env('TWITTER_ACCESS_SECRET')
+    ],
+
     'emergencyagenciestwitterhandles' => [
         'ncc' => '@NgComCommission',
         'nema' => '@nemanigeria',
-        'PPRO' => '@ElkanaBala',
-        'WellbeingFoundation' => '@wellbeingafrica',
-        'icm' => '@world_midwives',
-        'nigerianpoliceforce' => '@PoliceNG',
-        'FRSC' => '@FRSCNigeria',
-        'FMHDSD' => '@FMHDSD',
-        'WHO' => "@WHONigeria",
-        "UNICEF" => '@UNICEF_Nigeria',
-        "ActionAgainstHungerNigeria" => '@ACF_Nigeria',
-        'OUWaTERCenter' => "@OUWaTERCenter" //water and sanitation
+        // 'PPRO' => '@ElkanaBala',
+        // 'WellbeingFoundation' => '@wellbeingafrica',
+        // 'icm' => '@world_midwives',
+        // 'nigerianpoliceforce' => '@PoliceNG',
+        // 'FRSC' => '@FRSCNigeria',
+        // 'FMHDSD' => '@FMHDSD',
+        // 'WHO' => "@WHONigeria",
+        // "UNICEF" => '@UNICEF_Nigeria',
+        // "ActionAgainstHungerNigeria" => '@ACF_Nigeria',
+        // 'OUWaTERCenter' => "@OUWaTERCenter" //water and sanitation
     ],
 
 ];

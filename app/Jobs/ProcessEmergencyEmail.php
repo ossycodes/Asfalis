@@ -33,6 +33,7 @@ class ProcessEmergencyEmail implements ShouldQueue
      */
     public function handle()
     {
+        $this->user->notify(new NotifyEmergencyagenciesViaTwitter($this->location));
         $emergencyContacts = $this->user->emergencycontacts;
         foreach ($emergencyContacts as $contact) {
             Mail::to($contact)->send(new EmergencyMail($contact->name, $this->user->full_name, "USSD"));
