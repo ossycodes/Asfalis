@@ -624,7 +624,7 @@ class NewsTest extends TestCase
     public function it_can_delete_a_news()
     {
         $this->markTestSkipped("CANT FIGURE OUT WHY THIS AINT WORKING");
-        
+
         $news = factory(News::class)->create();
 
         $uri = route('news.destroy', ['id' => $news->id]);
@@ -634,4 +634,227 @@ class NewsTest extends TestCase
             "content-type" => "application/vnd.api+json"
         ])->assertStatus(204);
     }
+
+    /** @test */
+    public function it_can_sort_news_by_title_through_a_sort_query_parameter()
+    {
+        $news = collect([
+            "a title that should come first",
+            "second news should come last",
+            "last news should comes second",
+        ])->map(function ($title) {
+            return factory(News::class)->create([
+                "title" => $title
+            ]);
+        });
+
+
+        $url = route('news.all', ["sort=title"]);
+
+        $response = $this->getJson($url, [
+            "accept" =>  "application/vnd.api+json",
+            "content-type" => "application/vnd.api+json"
+        ]);
+
+        $response->assertJson([
+            "data" => [
+                [
+                    "id" => '1',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => "a title that should come first", //$news[0]->title,
+                        "description" => $news[0]->description,
+                        "body" => $news[0]->body
+                    ]
+                ],
+                [
+                    "id" => '3',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => "last news should comes second", //$news[1]->title,
+                        "description" => $news[2]->description,
+                        "body" => $news[2]->body
+                    ]
+                ],
+                [
+                    "id" => '2',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => "second news should come last", //$news[2]->title,
+                        "description" => $news[1]->description,
+                        "body" => $news[1]->body
+                    ]
+                ]
+            ]
+        ]);
+        $response->assertOk();
+    }
+
+    /** @test */
+    public function it_can_sort_news_by_title_in_descending_order_through_a_sort_query_parameter()
+    {
+        $news = collect([
+            "a title that should come last",
+            "second news should come first",
+            "last news should comes second",
+        ])->map(function ($title) {
+            return factory(News::class)->create([
+                "title" => $title
+            ]);
+        });
+
+
+        $url = route('news.all', ["sort=-title"]);
+
+        $response = $this->getJson($url, [
+            "accept" =>  "application/vnd.api+json",
+            "content-type" => "application/vnd.api+json"
+        ]);
+
+        $response->assertJson([
+            "data" => [
+                [
+                    "id" => '2',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => "second news should come first",
+                        "description" => $news[1]->description,
+                        "body" => $news[1]->body
+                    ]
+                ],
+                [
+                    "id" => '3',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => "last news should comes second",
+                        "description" => $news[2]->description,
+                        "body" => $news[2]->body
+                    ]
+                ],
+                [
+                    "id" => '1',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => "a title that should come last",
+                        "description" => $news[0]->description,
+                        "body" => $news[0]->body
+                    ]
+                ]
+            ]
+        ]);
+        $response->assertOk();
+    }
+
+    /** @test */
+    public function it_can_sort_news_by_description_through_a_sort_query_parameter()
+    {
+        $news = collect([
+            "a first description sorted alphabetically",
+            "b second description sorted alphabetically",
+            "z last description sorted alphabetically",
+        ])->map(function ($description) {
+            return factory(News::class)->create([
+                "description" => $description
+            ]);
+        });
+
+
+        $url = route('news.all', ["sort=description"]);
+
+        $response = $this->getJson($url, [
+            "accept" =>  "application/vnd.api+json",
+            "content-type" => "application/vnd.api+json"
+        ]);
+
+        $response->assertJson([
+            "data" => [
+                [
+                    "id" => '1',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => $news[0]->title,
+                        "description" => "a first description sorted alphabetically",
+                        "body" => $news[0]->body
+                    ]
+                ],
+                [
+                    "id" => '2',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => $news[1]->title,
+                        "description" => "b second description sorted alphabetically",
+                        "body" => $news[1]->body
+                    ]
+                ],
+                [
+                    "id" => '3',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" =>  $news[2]->title,
+                        "description" => "z last description sorted alphabetically",
+                        "body" => $news[2]->body
+                    ]
+                ]
+            ]
+        ]);
+        $response->assertOk();
+    }
+
+    /** @test */
+    public function it_can_sort_news_by_description_in_descending_order_through_a_sort_query_parameter()
+    {
+        $news = collect([
+            "a first description should come last when sorted alphabetically in descending order",
+            "b second should come second when sorted alphabetically in descending order",
+            "z last should come first when sorted alphabetically in descending order",
+        ])->map(function ($description) {
+            return factory(News::class)->create([
+                "description" => $description
+            ]);
+        });
+
+
+        $url = route('news.all', ["sort=-description"]);
+
+        $response = $this->getJson($url, [
+            "accept" =>  "application/vnd.api+json",
+            "content-type" => "application/vnd.api+json"
+        ]);
+
+        $response->assertJson([
+            "data" => [
+                [
+                    "id" => '3',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => $news[2]->title,
+                        "description" => "z last should come first when sorted alphabetically in descending order",
+                        "body" => $news[2]->body
+                    ]
+                ],
+                [
+                    "id" => '2',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" => $news[1]->title,
+                        "description" => "b second should come second when sorted alphabetically in descending order",
+                        "body" => $news[1]->body
+                    ]
+                ],
+                [
+                    "id" => '1',
+                    "type" => "news",
+                    "attributes" => [
+                        "title" =>  $news[0]->title,
+                        "description" => "a first description should come last when sorted alphabetically in descending order",
+                        "body" => $news[0]->body
+                    ]
+                ]
+            ]
+        ]);
+        $response->assertOk();
+    }
+
+    //check for body sorting
+    //check for multiple parameters sorting
 }

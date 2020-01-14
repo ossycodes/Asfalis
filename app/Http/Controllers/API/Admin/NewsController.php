@@ -5,16 +5,22 @@ namespace App\Http\Controllers\API\Admin;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NewsResource;
+use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\NewsCollection;
 use App\Http\Requests\CreateNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
-use App\Http\Resources\NewsResource;
-use App\Http\Resources\NewsCollection;
 
 class NewsController extends Controller
 {
     public function index()
     {
-        return new NewsCollection(News::all());
+        $news = QueryBuilder::for(News::class)->allowedSorts([
+            'title',
+            'description'
+        ])->paginate();
+
+        return new NewsCollection($news);
     }
 
     public function show($id)

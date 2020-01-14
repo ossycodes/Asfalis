@@ -49,4 +49,19 @@ return [
         'key' => env('GEOCODER_KEY')
     ],
 
+    'emergencyagenciestwitterhandles' => [
+        'ncc' => '@NgComCommission',
+        'nema' => '@nemanigeria',
+        'PPRO' => '@ElkanaBala',
+        'WellbeingFoundation' => '@wellbeingafrica',
+        'icm' => '@world_midwives',
+        'nigerianpoliceforce' => '@PoliceNG',
+        'FRSC' => '@FRSCNigeria',
+        'FMHDSD' => '@FMHDSD',
+        'WHO' => "@WHONigeria",
+        "UNICEF" => '@UNICEF_Nigeria',
+        "ActionAgainstHungerNigeria" => '@ACF_Nigeria',
+        'OUWaTERCenter' => "@OUWaTERCenter" //water and sanitation
+    ],
+
 ];
