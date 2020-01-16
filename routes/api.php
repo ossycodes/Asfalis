@@ -16,7 +16,7 @@ use App\Components\Sms\Facades\SMS;
 
 Route::group([
 
-    'middleware' => 'api',
+    // 'middleware' => ['api', 'json.api.headers'],
     'prefix' => 'v1/auth',
     'namespace' => 'API'
 
@@ -25,43 +25,59 @@ Route::group([
     Route::post('/login', 'AuthController@login');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/refresh', 'AuthController@refresh');
-    Route::get('/me', 'ProfileController@show');
+    Route::get('/me', 'ProfileController@show')->name('profile');
     Route::post('/register', 'RegisterController@store');
 });
 
 Route::group([
 
+    'middleware' => 'json.api.headers',
     'prefix' => 'v1',
     'namespace' => 'API'
 
 ], function ($router) {
     Route::get('/emergencyagencies', 'EmergencylineController@index');
+    Route::get('news', 'NewsController@index')->name('user.news.all');
+    Route::get('news/{id}', 'NewsController@show')->name('user/news.show');
+    Route::get('tips', 'TipsController@index')->name('user.tips.all');
+    Route::get('tips/{id}', 'TipsController@show')->name('user.tip.show');
 });
 
 Route::group([
 
-    'middleware' => 'api',
+    /**
+     * Africastalking routes.
+     */
+
     'prefix' => 'v1',
     'namespace' => 'API'
 
 ], function ($router) {
+
     Route::post('/ussd', 'EmergencyController@ussd');
-    Route::post('/emergency', 'EmergencyController@emergency');
     Route::post('/ussd/notifyemergencyagencies', 'EmergencyController@ussdNotifyEmergencyagencies');
+
+});
+
+Route::group([
+
+    'middleware' => ['api', 'json.api.headers'],
+    'prefix' => 'v1',
+    'namespace' => 'API'
+
+], function ($router) {
+    Route::post('/emergency', 'EmergencyController@emergency');
     Route::patch('/profile', 'ProfileController@update');
     Route::patch('/password/update', 'UpdatePasswordController@update');
     Route::post('/password/reset', 'ForgetPasswordController@store');
     Route::post('/emergencycontacts', 'EmergencycontactsController@store');
-    Route::get('/emergencycontacts', 'EmergencycontactsController@index')->name("user.emergencycontacts");
     Route::get('/emergencycontacts/{id}', 'EmergencycontactsController@show')->name("emergencycontact.show");
     Route::patch('/emergencycontacts/{emergencycontacts}', 'EmergencycontactsController@update');
     Route::delete('/emergencycontacts/{id}', 'EmergencycontactsController@destroy');
+    Route::get('/emergencycontacts', 'EmergencycontactsController@index')->name("user.emergencycontacts");
     Route::get('users/{user}/relationships/emergencycontacts', function () {
         return true;
     })->name('users.relationships.emergencycontacts');
-    Route::get('users/{users}/emergencycontacts', function () {
-        return true;
-    })->name('users.emergencycontacts');
     Route::post('testdrivers', function (SmsManager $sms) {
         // dump($sms->send());
         // dump($sms->channel('Africastalking')->send());
@@ -73,6 +89,7 @@ Route::group([
 //Admin Routes
 Route::group([
 
+    'middleware' => 'json.api.headers',
     'prefix' => 'v1/admin',
     'namespace' => 'API\Admin'
 

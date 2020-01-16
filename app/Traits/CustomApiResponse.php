@@ -51,17 +51,19 @@ trait CustomApiresponse
 
     public function errorUnauthorized()
     {
-        return  response()->json([
-            'status' => false,
-            'error' => 'Unauthorized'
+        return response()->json([
+            'error' => [
+                'title' => 'Unauthorized'
+            ]
         ], Response::HTTP_UNAUTHORIZED);
     }
 
     public function errorInternal($msg = null)
     {
         return response()->json([
-            'status' => false,
-            'error' => $msg ?? 'internal server error'
+            'error' => [
+                'title' => 'internal server error'
+            ]
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 

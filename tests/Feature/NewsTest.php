@@ -623,13 +623,11 @@ class NewsTest extends TestCase
     /** @test */
     public function it_can_delete_a_news()
     {
-        $this->markTestSkipped("CANT FIGURE OUT WHY THIS AINT WORKING");
-
         $news = factory(News::class)->create();
 
         $uri = route('news.destroy', ['id' => $news->id]);
 
-        $this->deleteJson($uri, [
+        $this->deleteJson($uri, [], [
             "accept" =>  "application/vnd.api+json",
             "content-type" => "application/vnd.api+json"
         ])->assertStatus(204);

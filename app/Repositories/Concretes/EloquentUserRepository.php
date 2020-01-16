@@ -3,6 +3,7 @@
 namespace App\Repositories\Concretes;
 
 use App\User;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Contracts\UserRepositoryInterface;
 
@@ -10,7 +11,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 {
     public function getAuthenticatedUser()
     {
-        return new \App\Http\Resources\User(auth()->user());
+        return new UserResource(auth()->user());
     }
 
     public function updateProfile()
@@ -34,19 +35,18 @@ class EloquentUserRepository implements UserRepositoryInterface
         return User::where('phonenumber', $formatedPhoneNumber)->first();
     }
 
-    public function formatPhonenumber($phoneNumber) {
+    public function formatPhonenumber($phoneNumber)
+    {
         return str_replace_first("+234", "0", $phoneNumber);
     }
 
     public function getUserWithPhonenumberAndPassword($phoneNumber, $password)
     {
-        // $formatedPhoneNumber = $this->formatPhonenumber($phoneNumber);
-        $user = $this->getUserWithPhonenumber($phoneNumber);
+       $user = $this->getUserWithPhonenumber($phoneNumber);
         if (Hash::check($password, $user->password)) {
             return $user;
         } else {
             return false;
         }
     }
-
 }

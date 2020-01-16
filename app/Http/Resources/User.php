@@ -29,7 +29,6 @@ class User extends JsonResource
                 'email' => $this->email,
                 'phone_number' => \Illuminate\Support\Str::replaceFirst('0', '+234', $this->phonenumber),
                 'registered' => $this->created_at->diffForHumans(),
-                //'emergencycontacts' => Emergencycontacts::collection($this->whenLoaded('emergencycontacts')),
             ],
             'relationships' => [
                 'emergencycontacts' => [
@@ -41,10 +40,20 @@ class User extends JsonResource
                         'related' => route(
                             'user.emergencycontacts'
                         ),
-                    ],
-                ]
+                    ]
+                ],
             ],
-
+            'included' => $this->emergencycontacts->map(function ($emergencycontact) {
+                return [
+                    'id' => (string) $emergencycontact->id,
+                    'type' => 'emergencycontacts',
+                    'attributes' => [
+                        "name" => $emergencycontact->name,
+                        "email" => $emergencycontact->email,
+                        "phone_number" => $emergencycontact->phonenumber
+                    ]
+                ];
+            })
         ];
     }
 }

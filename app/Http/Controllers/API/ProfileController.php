@@ -14,7 +14,7 @@ class ProfileController extends Controller
 
     public function __construct(UserRepositoryInterface $userRepoInterface)
     {
-        $this->middleware('auth');
+        $this->middleware('jwt');
         $this->userRepo = $userRepoInterface;
     }
 

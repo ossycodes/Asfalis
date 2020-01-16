@@ -416,13 +416,11 @@ class TipsTest extends TestCase
     /** @test */
     public function it_can_delete_a_tip()
     {
-        $this->markTestSkipped("CANT FIGURE OUT WHY THIS AINT WORKING");
-        
         $tip = factory(Tips::class)->create();
 
         $uri = route('tip.destroy', ['id' => $tip->id]);
 
-        $this->deleteJson($uri, [
+        $this->deleteJson($uri, [], [
             "accept" =>  "application/vnd.api+json",
         ])->assertStatus(204);
     }
