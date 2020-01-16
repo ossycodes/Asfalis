@@ -30,14 +30,15 @@ class AuthController extends  \App\Http\Controllers\Controller
      */
     public function login(LoginUser $request)
     {
+        $credentials = [
+            'email' => request()->input('data.attributes.email'),
+            'password' => request()->input('data.attributes.password')
+        ];
 
-        if (!$token = auth()->attempt(request(['email', 'password']))) {
-            // throw 'UnauthorizedException';
+        if (!$token = auth()->attempt($credentials)) {
             throw new UnauthorizedException("not authenticated");
-            // return $this->customApiResponse->errorUnauthorized();
         }
         return $this->respondWithToken($token);
-        // return $this->customApiResponse->respondWithToken($token);
     }
 
     /**

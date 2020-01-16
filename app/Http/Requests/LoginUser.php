@@ -24,8 +24,11 @@ class LoginUser extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required'
+            "data" => "required|array",
+            "data.type" => "required|in:users",
+            "data.attributes" => "required|array",
+            "data.attributes.email" => "required|string",
+            "data.attributes.password" => "required|string",
         ];
     }
 }

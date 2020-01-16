@@ -39,6 +39,24 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * always called after registering the service.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        //listen to the user creating event
+        //executes when the question model is created for the first time
+        static::creating(function ($user) {
+            $defaultPassword = self::generateDefaultPassword();
+            $user->password = $defaultPassword;
+            $user->default_password = $defaultPassword;
+        });
+    }
+
+    /**
      * Hashes/bcrypts the user's password.
      *
      * @param  string  $value
@@ -101,17 +119,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function register()
     {
-        $defaultPassword = \Illuminate\Support\Str::random(10);
-
-        $user = $this->create([
-            'first_name' => request('first_name'),
-            'last_name' => request('last_name'),
-            'email' => request('email'),
-            'phonenumber' => request('phonenumber'),
-            'default_password' => $defaultPassword,
-            'password' => $defaultPassword
-        ]);
-
+        $user = $this->create(request()->input('data.attributes'));
         return $user;
+    }
+
+    private static function generateDefaultPassword(): string
+    {
+        return  \Illuminate\Support\Str::random(10);
     }
 }

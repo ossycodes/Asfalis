@@ -23,13 +23,14 @@ class RegisterUser extends FormRequest
      */
     public function rules()
     {
-        //note:checkout africastalking laravel package steal the guy's phonenumber regrex 
-        //phonenumber validation and add as a custom rule.
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'phonenumber' => 'required|digits:11|unique:users,phonenumber',
+            "data" => "required|array",
+            "data.type" => "required|in:users",
+            "data.attributes" => "required|array",
+            "data.attributes.first_name" => "required|string",
+            "data.attributes.last_name" => "required|string",
+            "data.attributes.email" => "required|string",
+            "data.attributes.phonenumber" => "required|digits:11",
         ];
     }
 }
