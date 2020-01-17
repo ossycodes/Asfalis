@@ -3,12 +3,13 @@
 
 Hi {{ $emergencyContactName }}, {{ $user }} is in an emergency situation and currently located at {{ $userLocation }}
 <br>
-You are recieving this email because {{ $emergencyContactName }} registered you as an emergency contact, to be contacted whenever his/her is in an emergency sistuation.
+You are recieving this email because {{ $emergencyContactName }} registered you as an In Case Of Emergency (ICE) Contact.
+We have also notified various Emergency agencies.
 
 @component('mail::button', ['url' => ''])
 You can read about us on our website.
 @endcomponent
 
-Thanks,<br>
+Thanks<br>
 {{ config('app.name') }}
 @endcomponent

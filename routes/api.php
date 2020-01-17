@@ -16,17 +16,17 @@ use App\Components\Sms\Facades\SMS;
 
 Route::group([
 
-    // 'middleware' => ['api', 'json.api.headers'],
+    'middleware' => ['api', 'json.api.headers'],
     'prefix' => 'v1/auth',
     'namespace' => 'API'
 
 ], function ($router) {
 
-    Route::post('/login', 'AuthController@login');
+    Route::post('/login', 'AuthController@login')->name('auth.login');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/refresh', 'AuthController@refresh');
     Route::get('/me', 'ProfileController@show')->name('profile');
-    Route::post('/register', 'RegisterController@store');
+    Route::post('/register', 'RegisterController@store')->name('auth.register');
 });
 
 Route::group([
@@ -46,7 +46,7 @@ Route::group([
 Route::group([
 
     /**
-     * Africastalking routes.
+     * Africastalking USSD routes.
      */
 
     'prefix' => 'v1',

@@ -8,6 +8,8 @@ interface UserRepositoryInterface
     public function getAuthenticatedUser();
 
     public function updateProfile();
+    
+    public function updatePassword();
 
     public function getUserByEmail($email);
 

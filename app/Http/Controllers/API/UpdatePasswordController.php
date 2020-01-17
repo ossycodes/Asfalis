@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\UpdatePassword;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdatePasswordController extends \App\Http\Controllers\Controller
 {
-    public function __construct()
+    public $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo)
     {
-        return $this->middleware('jwt');
+        $this->middleware('jwt');
+        $this->userRepo = $userRepo;
     }
 
     public function update(UpdatePassword $request)
     {
-        auth()->user()->update([
-            'password' => bcrypt(request('new_password')),
-            'default_password' => null
-        ]);
-
-        return response()->json([], \Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT);
+        $this->userRepo->updatePassword();
+        
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
-

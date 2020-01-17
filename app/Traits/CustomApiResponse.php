@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait CustomApiresponse
 {
-    //find a way to chain methods eg return $this->customApiResponse()->okay();
     public function okay($msg = null)
     {
         return response()->json([
@@ -48,6 +47,15 @@ trait CustomApiresponse
         ], Response::HTTP_CREATED);
     }
 
+    public function error($msg = null)
+    {
+        return response()->json([
+            'error' => [
+                'title' => $msg
+            ]
+        ], Response::HTTP_UNAUTHORIZED);
+    }
+
     public function errorUnauthorized()
     {
         return response()->json([
@@ -70,23 +78,8 @@ trait CustomApiresponse
     {
         return response()->json([
             'data' => [
-                'message' => $msg
+                'title' => $msg
             ]
         ], Response::HTTP_CREATED);
     }
-
-    /**
-     * public function emergencyContactCreated() {
-     *  return (new Emergencycontacts($emergencycontacts))
-     * ->response()
-     *  ->header('Location', route('emergencycontact.show', ['id' =>
-     *  $emergencycontact->id]));
-     * }
-     */
-
-    /**
-     * public function emergencyContactUpdated() {
-     *    return new Emergencycontacts($emergencyContact);
-     *}
-     */
 }

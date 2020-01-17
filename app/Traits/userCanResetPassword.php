@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\User;
 use App\Notifications\ResetPasswordNotification;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait userCanResetPassword
 {
@@ -33,6 +34,5 @@ trait userCanResetPassword
         //send user an email with the password reset link
         $user->notify(new ResetPasswordNotification($token));
 
-        return $this->created('reset password link sent successfully');
     }
 }

@@ -13,7 +13,6 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
 {
     public function getEmergencyContactsForAuthenticatedUser()
     {
-        // return Emergencycontacts::collection(auth()->user()->emergencycontacts);
         return new EmergencycontactsCollection(auth()->user()->emergencycontacts);
     }
 
@@ -30,39 +29,18 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
 
     public function createEmergencyContacts()
     {
-        //omo work on this brah
-        //expecting the attributes to be stored in data.attributes
-        //add location in response header
-
-        // $book = Book::create([
-        // 'title' => $request->input('data.attributes.title'),
-        // 'description' => $request->input('data.attributes.
-        // description'),
-        // 'publication_year' => $request->input('data.attributes.
-        // publication_year'),
-        // ]);
-        // return (new BooksResource($book))
-        // ->response()
-        // ->header('Location', route('books.show', [
-        // 'book' => $book,
-        // ]));
-
-        $emergencyContacts = request()->toArray()["emergencycontacts"];
+        $emergencyContacts = request()->input("data.attributes");
         return auth()->user()->emergencycontacts()->createMany($emergencyContacts);
-
-        //fvck me, refactored from this unneccessary looping below to the above use of createMany
-
-        // foreach (request()->all() as $emergencyContacts => $contacts) {
-        //     foreach ($contacts as $contact) {
-        //          return auth()->user()->emergencycontacts()->create($contact);
-        //     }
-        // }
     }
 
     public function updateEmergencyContact($emergencyContactId)
     {
         $emergencyContact = $this->fetchEmergencyContact($emergencyContactId);
-        return $emergencyContact->update(request()->all());
+        return $emergencyContact->update([
+            "name" => request()->input('data.attributes.name'),
+            "email" => request()->input('data.attributes.name'),
+            "phonenumber" => request()->input('data.attributes.phonenumber'),
+        ]);
     }
 
     public function deleteEmergencyContact($emergencyContactId)

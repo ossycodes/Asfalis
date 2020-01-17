@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEmergencyContacts extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateEmergencyContacts extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,12 +24,7 @@ class UpdateEmergencyContacts extends FormRequest
     public function rules()
     {
         return [
-            "data" => "required|array",
-            "data.type" => "required|in:users",
-            "data.attributes" => "required|array",
-            "data.attributes.name" => "required|string",
-            "data.attributes.email" => "required|string",
-            "data.attributes.phonenumber" => "required|digits:11",
+            //
         ];
     }
 }

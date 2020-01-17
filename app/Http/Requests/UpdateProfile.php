@@ -24,10 +24,12 @@ class UpdateProfile extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string|max:150',
-            'last_name' => 'required|string|max:150',
-            'email' => 'required|email',
-            'phonenumber' => 'required|digits:11',
+            "data" => "required|array",
+            "data.type" => "required|in:users",
+            "data.attributes" => "required|array",
+            'data.attributes.first_name' => 'required|string|max:150',
+            'data.attributes.last_name' => 'required|string|max:150',
+            'data.attributes.phonenumber' => 'required|digits:11',
         ];
     }
 }

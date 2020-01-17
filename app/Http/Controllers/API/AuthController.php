@@ -51,6 +51,5 @@ class AuthController extends  \App\Http\Controllers\Controller
     {
         auth()->logout();
         return $this->okay('successfully logged out');
-        // return $this->customApiResponse->okay('successfully logged out');
     }
 }

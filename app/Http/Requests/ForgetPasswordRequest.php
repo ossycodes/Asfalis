@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEmergencyContacts extends FormRequest
+class ForgetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +27,19 @@ class UpdateEmergencyContacts extends FormRequest
             "data" => "required|array",
             "data.type" => "required|in:users",
             "data.attributes" => "required|array",
-            "data.attributes.name" => "required|string",
-            "data.attributes.email" => "required|string",
-            "data.attributes.phonenumber" => "required|digits:11",
+            "data.attributes.email" => "required|email|exists:users,email",
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.exists' => 'email does not exist'
         ];
     }
 }

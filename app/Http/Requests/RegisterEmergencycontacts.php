@@ -24,23 +24,15 @@ class RegisterEmergencycontacts extends FormRequest
     public function rules()
     {
         return [
-            'emergencycontacts.*.name' => 'required|string',
-            'emergencycontacts.*.email' => 'required|email|unique:emergencycontacts,email|unique:users',
-            'emergencycontacts.*.phonenumber' => 'required|digits:11|unique:emergencycontacts,phonenumber'
+            "data" => "required|array",
+            "data.type" => "required|in:emergencycontacts",
+            "data.attributes" => "required|array",
+            "data.attributes.*.name" => "required|string",
+            "data.attributes.*.email" => "required|string",
+            "data.attributes.*.phonenumber" => "required|digits:11",
         ];
+
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'emergencycontacts.*.email.unique' => 'emergencycontact email is already registered',
-            'emergencycontacts.*.phonenumber.unique'  => 'emergencycontact phonenumber is already registered',
 
-        ];
-    }
 }

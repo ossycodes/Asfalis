@@ -27,7 +27,6 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        // return $this->respondWithData($this->EmergencyContactsRepo->getEmergencyContactsForAuthenticatedUser());
         return $this->EmergencyContactsRepo->getEmergencyContactsForAuthenticatedUser();
     }
 
@@ -39,13 +38,12 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function store(RegisterEmergencycontacts $request)
     {
-        $incomingEmergencyContactsCount = count(request()["emergencycontacts"]);
+        $incomingEmergencyContactsCount = count(request()->input("data.attributes"));
         $emergencyContactsCount = $this->EmergencyContactsRepo->getAuthenticatedUserEmergencyContactsCount();
         if ($incomingEmergencyContactsCount + $emergencyContactsCount > 3) {
             return $this->errorBadRequest('only 3 emergency contacts can be registered');
         }
         $this->EmergencyContactsRepo->createEmergencyContacts();
-        //return the location header pointing to the new resource created
         return $this->created("emergencycontacts created successfully");
     }
 
@@ -57,7 +55,6 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
      */
     public function show($emergencyContactId)
     {
-        // return $this->respondWithData($this->EmergencyContactsRepo->getEmergencyContact($emergencyContactId));
         return $this->EmergencyContactsRepo->getEmergencyContact($emergencyContactId);
     }
 
@@ -71,7 +68,6 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
     public function update(UpdateEmergencyContacts $request, $emergencyContactId)
     {
         $this->EmergencyContactsRepo->updateEmergencyContact($emergencyContactId);
-        //return back the updated resource object
         return $this->noContent();
     }
 
@@ -86,5 +82,4 @@ class EmergencycontactsController extends \App\Http\Controllers\Controller
         $this->EmergencyContactsRepo->deleteEmergencyContact($emergencycontactId);
         return $this->noContent();
     }
-
 }

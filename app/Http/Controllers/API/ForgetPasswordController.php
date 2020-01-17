@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ForgetPasswordRequest;
 use App\Traits\userCanResetPassword;
 use App\Notifications\ResetPasswordNotification;
 use App\Repositories\Contracts\UserRepositoryInterface;
@@ -20,11 +21,9 @@ class ForgetPasswordController extends \App\Http\Controllers\Controller
         $this->userRepo = $userRepo;
     }
 
-    public function store(Request $request)
+    public function store(ForgetPasswordRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users,email'
-        ], ['email.exists' => 'email does not exist']);
-        return $this->validateRequestandCreateToken();
+        $this->validateRequestandCreateToken();
+        return $this->created('reset password link sent successfully');
     }
 }

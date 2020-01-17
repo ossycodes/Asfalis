@@ -16,7 +16,19 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function updateProfile()
     {
-        return auth()->user()->update(request()->all());
+        return auth()->user()->update([
+            "first_name" => request()->input('data.attributes.first_name'),
+            "last_name" => request()->input('data.attributes.last_name'),
+            "phonenumber" => request()->input('data.attributes.phonenumber'),
+        ]);
+    }
+
+    public function updatePassword()
+    {
+        return auth()->user()->update([
+            'password' => bcrypt(request()->input('data.attributes.new_password')),
+            'default_password' => null
+        ]);
     }
 
     public function getUserByEmail($email)
@@ -42,7 +54,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function getUserWithPhonenumberAndPassword($phoneNumber, $password)
     {
-       $user = $this->getUserWithPhonenumber($phoneNumber);
+        $user = $this->getUserWithPhonenumber($phoneNumber);
         if (Hash::check($password, $user->password)) {
             return $user;
         } else {

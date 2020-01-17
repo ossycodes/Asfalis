@@ -24,9 +24,11 @@ class EmergencyRequest extends FormRequest
     public function rules()
     {
         return [
-            'lattitude' => 'required',
-            'longitude' => 'required'
+            "data" => "required|array",
+            "data.type" => "required|in:emergencycontacts",
+            "data.attributes" => "required|array",
+            "data.attributes.lattitude" => "required|string",
+            "data.attributes.longitude" => "required|string",
         ];
     }
-
 }

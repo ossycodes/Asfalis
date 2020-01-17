@@ -24,7 +24,7 @@ class EmergencyMail extends Mailable
     {
         $this->emergencyContactName = $emergencyContactName;
         $this->user = $context === "USSD" ? $userName : auth()->user()->full_name;
-        $this->userLocation = $userLocation ? "" : $userLocation;
+        $this->userLocation = $userLocation ?? "" ;
     }
 
     /**

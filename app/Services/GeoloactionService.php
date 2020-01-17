@@ -15,16 +15,11 @@ class GeolocationService
         $this->apiKey = config('services.geocoder.key');
     }
     
-    public function getUserLocation()
+    public function getUserLocation($latitude, $longitude)
     {
-        $latitude = request('lattitude');
-        $longitude = request('longitude');
         $query = "{$latitude }+{$longitude}";
-      
         $response = $this->client->request('GET', "https://api.opencagedata.com/geocode/v1/json?q={$query}&key={$this->apiKey}");
-
         $body = json_decode($response->getBody());
-
         return $body->results[0]->formatted;
     }
 }

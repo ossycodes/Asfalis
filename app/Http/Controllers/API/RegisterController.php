@@ -9,6 +9,11 @@ use Exception;
 
 class RegisterController extends \App\Http\Controllers\Controller
 {
+    public function __construct()
+    {
+        $this->middleware("json.api.headers");
+    }
+
     public function store(RegisterUser $request, User $user)
     {
         if ($user->register()) {

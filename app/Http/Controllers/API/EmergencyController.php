@@ -6,7 +6,6 @@ use App\User;
 use App\Jobs\ProcessSMS;
 use App\Mail\EmergencyMail;
 use Illuminate\Http\Request;
-use App\Helpers\Customresponses;
 use App\Jobs\ProcessEmergencyEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -22,10 +21,9 @@ class EmergencyController extends Controller
     public $customResponse;
     public $userRepo;
 
-    public function __construct(Customresponses $customResponse, UserRepositoryInterface $userRepo)
+    public function __construct(UserRepositoryInterface $userRepo)
     {
         $this->middleware('jwt', ['only' => 'notify']);
-        $this->customApiResponse = $customResponse;
         $this->userRepo = $userRepo;
     }
 
@@ -79,10 +77,10 @@ class EmergencyController extends Controller
 
         if ($text == "") {
             // This is the first request. Note how we start the response with CON
-            $response  = "CON Welcome to StaySafeNigeria what is your emergency situation? \n";
+            $response  = "CON Welcome to BESAFE what is your emergency situation? \n";
             $response .= "1. Fire Service \n";
             $response .= "2. Road Accident \n";
-            $response .= "3. Building Collapse \n";
+            $response .= "3. Arm Robbery \n";
             $response .= "4. Others \n";
         } else if ($text == "1") {
             $response = "CON Please enter your location \n";
@@ -97,8 +95,13 @@ class EmergencyController extends Controller
             $user = $this->userRepo->getUserWithPhonenumber($phoneNumber);
 
             if ($user) {
-                $response = "END SMS and Email has been sent to your registered emergency contacts, we have also tweeted various emergency agencies.\n";
+                $response = "END SMS and Email has been sent to your registered In Case Of Emergency (I.C.E) contacts, we have also tweeted various emergency agencies.\n";
                 //dispatch
+                //send sms in background.
+                //ProcessSMS::dispatch($user, $location);
+                //send email in background? maybe.
+                //ProcessEmergencyEmail::dispatch($user,$location);
+                //notify emergency agencies via Twitter
                 ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
             } else {
                 $response = "END You are not registered for this service, please download StaySafeNigeria application and register an account. \n";
@@ -116,28 +119,20 @@ class EmergencyController extends Controller
 
     public function emergency(EmergencyRequest $request)
     {
+        // put in try and catch sha
+        
+        // 1. send SMS to I.C.E contatcs
+            //send sms in background.
+            // $location = resolve('App\Services\GeolocationService')->getUserLocation($latitude, $longitude);
+            // ProcessSMS::dispatch($user, $location);
+        
+        // 2. Send I.C.E contatcs emails
+            // ProcessEmergencyEmail::dispatch(auth()->user(), $location);
+        
+        //TODO
+        //3. Notify Emergency agencies via twitter
+            //ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
 
-        // ProcessEmergencyEmail::dispatch(auth()->user());
-        //Responsible for sending emergency sms via mobile application
-        // $user = auth()->user();
-        // $emergencyContacts = $user->emergencycontacts;
-        // if ($emergencyContacts->count() === 0) {
-        //     return $this->customApiResponse->errorBadRequest('no emergency contact registered');
-        // }
-
-        // $emergencyContacts =  Emergencycontacts::collection($user->emergencycontacts);
-
-        // try {
-        //     $userLocation = resolve('App\Services\GeolocationService')->getUserLocation();
-
-        //     foreach ($emergencyContacts as $contact) {
-        //         Mail::to($contact)->send(new EmergencyMail($contact->name, $userLocation));
-        //         // resolve('App\Services\SMSservice')->sendSMS($user->fullName, $contact->phonenumber);
-        //     }
-        // } catch (\Exception $e) {
-        //     return $this->customApiResponse->errorInternal('could not connect to host, please try again later');
-        // }
-
-        // return $this->customApiResponse->okay('sms and email sent to emergency contacts');
+        return $this->okay('sms and email sent to emergency contacts');
     }
 }

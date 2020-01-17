@@ -25,9 +25,10 @@ class UpdatePassword extends FormRequest
     public function rules()
     {
         //if i dont pass token, error comes up, try and fix.
-
         return [
-            'old_password' => [
+            "data" => "required|array",
+            "data.type" => "required|in:users",
+            "data.attributes.old_password" => [
                 'required',
                 function ($attribute, $value, $fail) {
                     if (!Hash::check(request('old_password'), auth()->user()->password)) {
@@ -35,7 +36,7 @@ class UpdatePassword extends FormRequest
                     }
                 },
             ],
-            'new_password' => [
+            'data.attributes.new_password' => [
                 'required',
                 function ($attribute, $value, $fail) {
                     if (Hash::check(request('new_password'), auth()->user()->password)) {

@@ -16,14 +16,19 @@ class ProcessEmergencyEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     public $user;
+    public $location;
+    public $context;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $location)
     {
         $this->user = $user;
+        $this->location = $location;
+        $this->context = is_array($location) ? "USSD" : "MOBILE";
     }
 
     /**
@@ -33,10 +38,12 @@ class ProcessEmergencyEmail implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->notify(new NotifyEmergencyagenciesViaTwitter($this->location));
+        if (is_array($this->location)) {
+            [$this->service, $this->location] = explode("*", $this->location);
+        }
         $emergencyContacts = $this->user->emergencycontacts;
         foreach ($emergencyContacts as $contact) {
-            Mail::to($contact)->send(new EmergencyMail($contact->name, $this->user->full_name, "USSD"));
+            Mail::to($contact)->send(new EmergencyMail($contact->name, $this->user->full_name, $this->context, $this->location));
         }
     }
 }
