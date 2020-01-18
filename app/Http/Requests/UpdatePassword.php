@@ -31,7 +31,7 @@ class UpdatePassword extends FormRequest
             "data.attributes.old_password" => [
                 'required',
                 function ($attribute, $value, $fail) {
-                    if (!Hash::check(request('old_password'), auth()->user()->password)) {
+                    if (!Hash::check($value, auth()->user()->password)) {
                         $fail('old password is incorrect.');
                     }
                 },
@@ -39,7 +39,7 @@ class UpdatePassword extends FormRequest
             'data.attributes.new_password' => [
                 'required',
                 function ($attribute, $value, $fail) {
-                    if (Hash::check(request('new_password'), auth()->user()->password)) {
+                    if (Hash::check($value, auth()->user()->password)) {
                         $fail('new password cannot be the same as your old password.');
                     }
                 },

@@ -18,11 +18,11 @@ class EnsureCorrectAPIHeaders
     public function handle($request, Closure $next)
     {
         if ($request->headers->get('accept') !== "application/vnd.api+json") {
-            return $this->addCorrectContentType(new Response('', 406));
+            return $this->addCorrectContentType(new Response('', Response::HTTP_NOT_ACCEPTABLE));
         }
         if ($request->isMethod('POST') || $request->isMethod('PATCH')) {
             if ($request->headers->get("content-type") !== "application/vnd.api+json") {
-                return $this->addCorrectContentType(new Response('', 415));
+                return $this->addCorrectContentType(new Response('', Response::HTTP_UNSUPPORTED_MEDIA_TYPE));
             }
         }
 

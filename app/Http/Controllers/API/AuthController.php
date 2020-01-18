@@ -11,16 +11,14 @@ use Illuminate\Validation\UnauthorizedException;
 
 class AuthController extends  \App\Http\Controllers\Controller
 {
-    public $customApiResponse;
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct(\App\Helpers\Customresponses $customApiResponse)
+    public function __construct()
     {
         $this->middleware('jwt', ['except' => ['login']]);
-        $this->customApiResponse = $customApiResponse;
     }
 
     /**

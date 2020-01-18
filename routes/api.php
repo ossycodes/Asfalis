@@ -53,10 +53,7 @@ Route::group([
     'namespace' => 'API'
 
 ], function ($router) {
-
     Route::post('/ussd', 'EmergencyController@ussd');
-    Route::post('/ussd/notifyemergencyagencies', 'EmergencyController@ussdNotifyEmergencyagencies');
-
 });
 
 Route::group([

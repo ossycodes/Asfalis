@@ -19,7 +19,6 @@ class UpdatePasswordController extends \App\Http\Controllers\Controller
     public function update(UpdatePassword $request)
     {
         $this->userRepo->updatePassword();
-        
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

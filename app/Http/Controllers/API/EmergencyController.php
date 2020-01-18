@@ -27,47 +27,47 @@ class EmergencyController extends Controller
         $this->userRepo = $userRepo;
     }
 
+    // public function ussd()
+    // {
+    //     // Reads the variables sent via POST from our gateway
+    //     $sessionId   = request('sessionId');
+    //     $serviceCode = request('serviceCode');
+    //     $phoneNumber = request('phoneNumber');
+    //     $text        = request('text');
+
+    //     if ($text == "") {
+    //         // This is the first request. Note how we start the response with CON
+    //         $response  = "CON Welcome to StaySafe please enter password for {$phoneNumber} \n";
+    //     } else if ($text) {
+    //         $response = "END Your password is " . $text;
+
+    //         // $response = "END Enter your location";
+
+    //         //TODO: ask user for location and pass to ProcessEmergencyEmail/ProcessSMS
+    //         // $location
+
+    //         $user = $this->userRepo->getUserWithPhonenumberAndPassword($phoneNumber, $text);
+
+    //         if ($user) {
+
+    //             //send sms in background.
+    //             // ProcessSMS::dispatch($user, $location);
+    //             //send email in background? maybe.
+    //             // ProcessEmergencyEmail::dispatch($user,$location);
+    //             ProcessEmergencyEmail::dispatch($user);
+    //             $response = "END SMS and Email has been sent to your registered emergency contacts, we have also tweeted various emergency agencies.\n";
+    //         } else {
+
+    //             $response = "END You are not registered for this service, please download Usecured application. \n";
+    //         }
+    //     }
+
+    //     // Echo the response back to the API
+    //     return response($response)
+    //         ->header('Content-Type', 'text/plain');
+    // }
+
     public function ussd()
-    {
-        // Reads the variables sent via POST from our gateway
-        $sessionId   = request('sessionId');
-        $serviceCode = request('serviceCode');
-        $phoneNumber = request('phoneNumber');
-        $text        = request('text');
-
-        if ($text == "") {
-            // This is the first request. Note how we start the response with CON
-            $response  = "CON Welcome to StaySafe please enter password for {$phoneNumber} \n";
-        } else if ($text) {
-            $response = "END Your password is " . $text;
-
-            // $response = "END Enter your location";
-
-            //TODO: ask user for location and pass to ProcessEmergencyEmail/ProcessSMS
-            // $location
-
-            $user = $this->userRepo->getUserWithPhonenumberAndPassword($phoneNumber, $text);
-
-            if ($user) {
-
-                //send sms in background.
-                // ProcessSMS::dispatch($user, $location);
-                //send email in background? maybe.
-                // ProcessEmergencyEmail::dispatch($user,$location);
-                ProcessEmergencyEmail::dispatch($user);
-                $response = "END SMS and Email has been sent to your registered emergency contacts, we have also tweeted various emergency agencies.\n";
-            } else {
-
-                $response = "END You are not registered for this service, please download Usecured application. \n";
-            }
-        }
-
-        // Echo the response back to the API
-        return response($response)
-            ->header('Content-Type', 'text/plain');
-    }
-
-    public function ussdNotifyEmergencyagencies()
     {
         // Reads the variables sent via POST from our gateway
         $sessionId   = $_POST["sessionId"];
@@ -105,7 +105,7 @@ class EmergencyController extends Controller
                 ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
             } else {
                 $response = "END You are not registered for this service, please download StaySafeNigeria application and register an account. \n";
-                //dispatch
+                //dispatch, remember to delete the below codes, was for testing
                 $user = \App\User::find(1);
                 ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
             }

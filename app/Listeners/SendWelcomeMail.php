@@ -30,9 +30,7 @@ class SendWelcomeMail implements ShouldQueue
      */
     public function handle(UserCreated $event)
     {
-        $this->user->default_password = "ssss";
         $this->user = $event->user;
-
         Mail::to($this->user)->send(new WelcomeEmail($this->user));
     }
 }
