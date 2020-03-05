@@ -41,6 +41,9 @@ Route::group([
     Route::get('news/{id}', 'NewsController@show')->name('user/news.show');
     Route::get('tips', 'TipsController@index')->name('user.tips.all');
     Route::get('tips/{id}', 'TipsController@show')->name('user.tip.show');
+    Route::post('/tips', 'TipsController@store')->name('user.tips.store');
+    Route::post('/user/tips', 'UserTipsController@index')->name('user.tips');
+    Route::post('/issues', 'IssuesController@store')->name('issues.store');
 });
 
 Route::group([

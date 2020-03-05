@@ -97,6 +97,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(ResetToken::class);
     }
 
+    public function tips()
+    {
+        return $this->hasMany(Tips::class);
+    }
+
+    public function issues()
+    {
+        return $this->hasMany(Issue::class);
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipsTable extends Migration
+class CreateIssuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateTipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tips', function (Blueprint $table) {
+        Schema::create('issues', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger("user_id");
-            $table->mediumText("body");
+            $table->unsignedInteger('user_id');
+            $table->mediumText("description");
+            $table->String("location");
             $table->timestamps();
 
-            $table->foreign("user_id")->references("id")->on("users");
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateTipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tips');
+        Schema::dropIfExists('issues');
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tips extends Model
+class Issue extends Model
 {
     public function user()
     {
@@ -12,6 +12,4 @@ class Tips extends Model
     }
 
     protected $guarded = [];
-
-    protected $with = ["user"];
 }
