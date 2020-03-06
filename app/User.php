@@ -27,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-    protected $with = 'emergencycontacts';
+    protected $with = ['emergencycontacts', 'issues'];
 
     /**
      * The event map for the model.

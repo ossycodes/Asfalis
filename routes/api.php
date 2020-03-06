@@ -27,6 +27,7 @@ Route::group([
     Route::post('/refresh', 'AuthController@refresh');
     Route::get('/me', 'ProfileController@show')->name('profile');
     Route::post('/register', 'RegisterController@store')->name('auth.register');
+
 });
 
 Route::group([
@@ -36,6 +37,7 @@ Route::group([
     'namespace' => 'API'
 
 ], function ($router) {
+
     Route::get('/emergencyagencies', 'EmergencylineController@index');
     Route::get('news', 'NewsController@index')->name('user.news.all');
     Route::get('news/{id}', 'NewsController@show')->name('user/news.show');
@@ -44,6 +46,8 @@ Route::group([
     Route::post('/tips', 'TipsController@store')->name('user.tips.store');
     Route::post('/user/tips', 'UserTipsController@index')->name('user.tips');
     Route::post('/issues', 'IssuesController@store')->name('issues.store');
+    Route::get('/issues', 'IssuesController@index')->name('issues.index');
+
 });
 
 Route::group([
@@ -57,6 +61,7 @@ Route::group([
 
 ], function ($router) {
     Route::post('/ussd', 'EmergencyController@ussd');
+    Route::get('/health-check', fn () => "all good");
 });
 
 Route::group([
@@ -81,7 +86,7 @@ Route::group([
     Route::post('testdrivers', function (SmsManager $sms) {
         // dump($sms->send());
         // dump($sms->channel('Africastalking')->send());
-        dump(SMS::to('+2348034711579')->content('Test Message from Stay Safe Scheme')->send());
+        // dump(SMS::to('+2348034711579')->content('Test Message from WeSafe')->send());
     });
 });
 

@@ -43,10 +43,8 @@ class ProcessSMS implements ShouldQueue
         }
         $emergencyContacts = $this->user->emergencycontacts;
         $emergencyContactPhonenumbers =  $emergencyContacts->pluck("phonenumber")->all();
-        $message = "{$this->user->full_name} is in an emergency situation, currently at {$this->location}, you are recieving this SMS because {$this->user->full_name} registered you as an In Case Of Emergency (I.C.E) contact,      FROM BESAFE www.besafenigeria.com.ng";
-        // dump(SMS::to('+2348034711579')->content($message)->send());
-        // dump(SMS::to('+2348034711579')->content('Test Message from BESAFE')->send());
-        // dump($sms->channel('Africastalking')->send());
-        // dump(SMS::to('+2348034711579')->content('Test Message from BESAFE')->send());
+        $message = "{$this->user->full_name} is in an emergency situation, currently at {$this->location}, you are recieving this SMS because {$this->user->full_name} registered you as an In Case Of Emergency (I.C.E) contact,      FROM WESAFE";
+        return $sms->to($emergencyContactPhonenumbers)->channel('Africastalking')->content($message)->send();
+        
     }
 }
