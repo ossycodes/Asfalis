@@ -24,3 +24,4 @@ class IssuesResource extends JsonResource
         ];
     }
 }
+https://tech.fleka.me/

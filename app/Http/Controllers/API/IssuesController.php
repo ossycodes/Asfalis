@@ -21,6 +21,7 @@ class IssuesController extends Controller
 
     public function store(StoreIssues $request)
     {
+        //switch to repository for consistency
         $body = $request->validated()["data"]["attributes"];
         \App\Issue::create([
             "description" => $body["description"],
