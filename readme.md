@@ -18,7 +18,7 @@
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the blahblah
+Thank you for considering contributing to the WeSafe! The contribution guide can be found in the blahblah
 
 ## Security Vulnerabilities
 
