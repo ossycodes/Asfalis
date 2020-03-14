@@ -17,7 +17,6 @@ class EmergencylineController extends  \App\Http\Controllers\Controller
 
     public function index()
     {
-        // return $this->respondWithData($this->emergencyAgencyRepo->getAllEmergencyAgencies());
         return $this->emergencyAgencyRepo->getAllEmergencyAgencies();
     }
 }

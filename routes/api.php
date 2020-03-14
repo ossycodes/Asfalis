@@ -2,13 +2,8 @@
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| WESAFE-API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 
 use App\Components\Sms\SmsManager;
@@ -91,10 +86,13 @@ Route::group([
 });
 
 
-//Admin Routes
+/**
+ * Admin Routes
+ * //TODO: ADD Admin middleware
+ */
 Route::group([
 
-    'middleware' => 'json.api.headers',
+    'middleware' => ['json.api.headers', 'jwt', 'is.admin'],
     'prefix' => 'v1/admin',
     'namespace' => 'API\Admin'
 

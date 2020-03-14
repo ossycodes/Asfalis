@@ -18,7 +18,6 @@ trait CustomApiresponse
     public function respondWithData($msg = null)
     {
         return response()->json([
-            'status' => true,
             'data' => $msg ?? 'okay'
         ], Response::HTTP_OK);
     }

@@ -11,7 +11,6 @@ class EloquentEmergencylineRepository implements EmergencylineInterface
 {
     public function getAllEmergencyAgencies()
     {
-        // return Emergencyline::collection(EmergencyAgency::all());
         return new EmergencylineCollection(EmergencyAgency::all());
     }
 }

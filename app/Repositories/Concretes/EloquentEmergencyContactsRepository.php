@@ -38,7 +38,7 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
         $emergencyContact = $this->fetchEmergencyContact($emergencyContactId);
         return $emergencyContact->update([
             "name" => request()->input('data.attributes.name'),
-            "email" => request()->input('data.attributes.name'),
+            "email" => request()->input('data.attributes.email'),
             "phonenumber" => request()->input('data.attributes.phonenumber'),
         ]);
     }

@@ -18,11 +18,11 @@
 
 ## Contributing
 
-Thank you for considering contributing to the WeSafe! The contribution guide can be found in the blahblah
+Thank you for considering contributing to the WeSafe application! The contribution guide can be found in the contributing.md file.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [osaigbovoemmanuel1@gamil.com](mailto:osaigbovoemmanuel1@gmail.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within WeSafe application, please send an e-mail to Osaigbovo Emmanuel via [osaigbovoemmanuel1@gmail.com](mailto:osaigbovoemmanuel1@gmail.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 

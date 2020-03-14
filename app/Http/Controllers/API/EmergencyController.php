@@ -104,7 +104,7 @@ class EmergencyController extends Controller
                 //notify emergency agencies via Twitter
                 ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
             } else {
-                $response = "END You are not registered for this service, please download StaySafeNigeria application and register an account. \n";
+                $response = "END You are not registered for this service, please download WeSafe mobile application and register an account. \n";
                 //dispatch, remember to delete the below codes, was for testing
                 $user = \App\User::find(1);
                 ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
@@ -133,6 +133,6 @@ class EmergencyController extends Controller
         //3. Notify Emergency agencies via twitter
             //ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
 
-        return $this->okay('sms and email sent to emergency contacts');
+        return $this->okay('sms and email sent to emergency contacts, we have also tweeted neccessary emergency agencies');
     }
 }

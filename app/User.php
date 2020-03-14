@@ -57,6 +57,14 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * checks if the email belongs to administrator
+     */
+    public function isAdmin()
+    {
+        return in_array($this->email, config('wesafe.admins'));
+    }
+
+    /**
      * Hashes/bcrypts the user's password.
      *
      * @param  string  $value
