@@ -8,7 +8,7 @@ use App\Events\EmergencycontactCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendECRegMail 
+class SendECRegMail implements ShouldQueue
 {
     
     /**

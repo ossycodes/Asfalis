@@ -22,7 +22,6 @@ Route::group([
     Route::post('/refresh', 'AuthController@refresh');
     Route::get('/me', 'ProfileController@show')->name('profile');
     Route::post('/register', 'RegisterController@store')->name('auth.register');
-
 });
 
 Route::group([
@@ -42,7 +41,6 @@ Route::group([
     Route::post('/user/tips', 'UserTipsController@index')->name('user.tips');
     Route::post('/issues', 'IssuesController@store')->name('issues.store');
     Route::get('/issues', 'IssuesController@index')->name('issues.index');
-
 });
 
 Route::group([
@@ -56,7 +54,10 @@ Route::group([
 
 ], function ($router) {
     Route::post('/ussd', 'EmergencyController@ussd');
-    Route::get('/health-check', fn () => "all good");
+    // Route::get('/health-check', fn () => "all good");
+    Route::get('/health-check', function () {
+        return "all good";
+    });
 });
 
 Route::group([
@@ -88,7 +89,6 @@ Route::group([
 
 /**
  * Admin Routes
- * //TODO: ADD Admin middleware
  */
 Route::group([
 
@@ -112,6 +112,5 @@ Route::group([
     Route::post('tips', 'TipsController@store')->name('tip.store');
     Route::patch('tips/{id}', 'TipsController@update')->name('tip.update');
     Route::delete('tips/{id}', 'TipsController@destroy')->name('tip.destroy');
-    // Auth operation / middleware
-    // Read Registered Users/EmergencyContacts Details
+    //TODO Read Registered Users/EmergencyContacts Details
 });

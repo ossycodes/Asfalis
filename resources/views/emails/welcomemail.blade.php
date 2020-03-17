@@ -1,7 +1,7 @@
 @component('mail::message')
 # Dear {{ $user->first_name }}, Thank you for signing up.
 
-We built BESAFE to help our users curb emergency situation ASAP by reaching out to registered In Case Of Emergency (ICE) Contacts which are assumed to be families and close friends of the user.
+We built WESAFE to help our users curb emergency situation ASAP by reaching out to registered In Case Of Emergency (ICE) Contacts which are assumed to be families and close friends of the user.
 We also notify various Emergency agencies....
 
 Your default password is {{ $user->default_password }}
