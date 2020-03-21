@@ -20,8 +20,13 @@ return [
     ],
 
     'africastalking' => [
-        'apiKey' => env('SMS_APIKEY'),
         'username' => env('SMS_USERNAME'),
+        'key' => env('SMS_KEY'),
+    ],
+
+    'fcm' => [
+        'key' => env('FCM_SECRET_KEY'),
+        'topic' => env('FCM_TOPIC'),
     ],
 
     'sms' => [

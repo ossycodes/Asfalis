@@ -8,6 +8,7 @@
 
 use App\Components\Sms\SmsManager;
 use App\Components\Sms\Facades\SMS;
+use App\Notifications\TestAbg;
 
 Route::group([
 
@@ -54,9 +55,12 @@ Route::group([
 
 ], function ($router) {
     Route::post('/ussd', 'EmergencyController@ussd');
-    // Route::get('/health-check', fn () => "all good");
     Route::get('/health-check', function () {
         return "all good";
+    });
+    Route::get('/test-notify', function () {
+        $user = \App\User::find(1);
+        return $user->notify(new TestAbg());
     });
 });
 
@@ -112,5 +116,8 @@ Route::group([
     Route::post('tips', 'TipsController@store')->name('tip.store');
     Route::patch('tips/{id}', 'TipsController@update')->name('tip.update');
     Route::delete('tips/{id}', 'TipsController@destroy')->name('tip.destroy');
-    //TODO Read Registered Users/EmergencyContacts Details
+    Route::get('/users', 'UsersController@index')->name('users.all');    
+    Route::get('/users/{user}', 'UsersController@show')->name('user.show'); 
+    Route::get('/users/{user}/emergencycontacts', 'UserEmergencyContactsController@index')->name('user.emergencycontacts.all'); 
+    // /emergency/situations
 });

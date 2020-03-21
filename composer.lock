@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5cd5eb486b451c2ba5bd7650dc56cd1",
+    "content-hash": "edd215da1901c49e24432fbd9cd0f89f",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -113,16 +113,68 @@
             "time": "2019-09-09T11:29:11+00:00"
         },
         {
+            "name": "benwilkins/laravel-fcm-notification",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benwilkins/laravel-fcm-notification.git",
+                "reference": "a184c3e21fb242c54816534e1b1a8a7032960506"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benwilkins/laravel-fcm-notification/zipball/a184c3e21fb242c54816534e1b1a8a7032960506",
+                "reference": "a184c3e21fb242c54816534e1b1a8a7032960506",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "illuminate/config": "5.3.*|5.4.*|5.5.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/notifications": "5.3.*|5.4.*|5.5.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/queue": "5.3.*|5.4.*|5.5.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/support": "5.3.*|5.4.*|5.5.*|5.5.*|5.6.*|5.7.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Benwilkins\\FCM\\FcmNotificationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Benwilkins\\FCM\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Wilkins",
+                    "email": "bentwilkins@gmail.com"
+                }
+            ],
+            "description": "Laravel FCM (Firebase Cloud Messaging) Notification Channel",
+            "time": "2018-10-17T14:34:19+00:00"
+        },
+        {
             "name": "bepsvpt/secure-headers",
             "version": "5.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/BePsvPT/secure-headers.git",
+                "url": "https://github.com/bepsvpt/secure-headers.git",
                 "reference": "6198bd959d291b89be65221febf566044ba246bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/6198bd959d291b89be65221febf566044ba246bc",
+                "url": "https://api.github.com/repos/bepsvpt/secure-headers/zipball/6198bd959d291b89be65221febf566044ba246bc",
                 "reference": "6198bd959d291b89be65221febf566044ba246bc",
                 "shasum": ""
             },
@@ -956,6 +1008,66 @@
             ],
             "description": "A small utility to count characters and shorten posts to tweet-length.",
             "time": "2017-11-25T19:51:26+00:00"
+        },
+        {
+            "name": "laravel-notification-channels/africastalking",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/africastalking.git",
+                "reference": "0984617fdc50adef75744b4a3ef3a6eca590c490"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/africastalking/zipball/0984617fdc50adef75744b4a3ef3a6eca590c490",
+                "reference": "0984617fdc50adef75744b4a3ef3a6eca590c490",
+                "shasum": ""
+            },
+            "require": {
+                "africastalking/africastalking": "^2.3",
+                "illuminate/notifications": "~5.5 || ~6.0 || ~7.0",
+                "illuminate/support": "~5.5 || ~6.0 || ~7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "~5.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\AfricasTalking\\AfricasTalkingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\AfricasTalking\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Osaigbovo Emmanuel",
+                    "email": "osaigbovoemmanuel1@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package makes it easy to send notifications via AfricasTalking with Laravel",
+            "homepage": "https://github.com/laravel-notification-channels/africastalking",
+            "keywords": [
+                "Africastalking",
+                "laravel",
+                "laravel-notification-channel",
+                "notification",
+                "notification-channel"
+            ],
+            "time": "2020-03-17T20:44:03+00:00"
         },
         {
             "name": "laravel-notification-channels/twitter",
