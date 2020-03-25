@@ -146,15 +146,4 @@ class User extends Authenticatable implements JWTSubject
         return  \Illuminate\Support\Str::random(10);
     }
 
-    /**
-     * Route notifications for the Africas Talking channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return string
-     */
-    public function routeNotificationForAfricasTalking($notification)
-    {
-        return "+2348034674498";
-    }
-
 }

@@ -9,6 +9,11 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
+    public function find(int $id)
+    {
+        return User::find($id);
+    }
+
     public function getAuthenticatedUser()
     {
         return new UserResource(auth()->user());

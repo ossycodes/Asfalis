@@ -13,6 +13,7 @@ use App\Repositories\Contracts\EmergencyContactsRepositoryInterface;
 class EmergencycontactsController extends \App\Http\Controllers\Controller
 {
     public $customResponse;
+    public $EmergencyContactsRepo;
 
     public function __construct(EmergencyContactsRepositoryInterface $emergencyContactsRepositoryInterface)
     {

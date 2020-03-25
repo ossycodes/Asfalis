@@ -2,13 +2,12 @@
 
 /*
 |--------------------------------------------------------------------------
-| WESAFE-API Routes
+| ASFALIS-API Routes
 |--------------------------------------------------------------------------
 */
 
 use App\Components\Sms\SmsManager;
 use App\Components\Sms\Facades\SMS;
-use App\Notifications\TestAbg;
 
 Route::group([
 
@@ -57,10 +56,6 @@ Route::group([
     Route::post('/ussd', 'EmergencyController@ussd');
     Route::get('/health-check', function () {
         return "all good";
-    });
-    Route::get('/test-notify', function () {
-        $user = \App\User::find(1);
-        return $user->notify(new TestAbg());
     });
 });
 
@@ -119,5 +114,5 @@ Route::group([
     Route::get('/users', 'UsersController@index')->name('users.all');    
     Route::get('/users/{user}', 'UsersController@show')->name('user.show'); 
     Route::get('/users/{user}/emergencycontacts', 'UserEmergencyContactsController@index')->name('user.emergencycontacts.all'); 
-    // /emergency/situations
+    Route::post('/emergencysituation', 'EmergencySituationController@alert')->name('emergencysituation.alert');
 });
