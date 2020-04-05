@@ -9,6 +9,12 @@ use App\Repositories\Contracts\TipsRepositoryInterface;
 
 class EloquentTipsRepository implements TipsRepositoryInterface
 {
+    /**
+     * creates a tips resource.
+     *
+     * @param \illuminate\Http\Request $request
+     * @return \App\Tips
+     */
     public function create(Request $request)
     {
         $body = $request->validated()["data"]["attributes"]["body"];
@@ -18,11 +24,23 @@ class EloquentTipsRepository implements TipsRepositoryInterface
         ]);
     }
 
+    /**
+     * find a tip by the given ID.
+     *
+     * @param integer $id
+     * @return \App\Tips
+     */
     public function find(int $id): Tips
     {
         return Tips::find($id);
     }
 
+    /**
+     * fetch all tips created.
+     *
+     * @param integer $id
+     * @return void
+     */
     public function all()
     {
         return Tips::all();

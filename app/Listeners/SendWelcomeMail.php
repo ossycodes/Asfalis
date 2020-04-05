@@ -31,6 +31,9 @@ class SendWelcomeMail implements ShouldQueue
     public function handle(UserCreated $event)
     {
         $this->user = $event->user;
+        if (app()->isLocal()) {
+            return true;
+        }
         Mail::to($this->user)->send(new WelcomeEmail($this->user));
     }
 }

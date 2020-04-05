@@ -9,21 +9,43 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
+    /**
+     * find a user with the given ID.
+     *
+     * @param integer $id
+     * @return void
+     */
     public function find(int $id)
     {
         return User::find($id);
     }
 
+    /**
+     * find a user with the given phonenumber.
+     *
+     * @param $phoneNumber
+     * @return void
+     */
     public function findByPhonenumber($phoneNumber)
     {
         return User::where("phonumber", $phoneNumber)->first();
     }
 
+    /**
+     * fetches the currently authenticated user as a resource.
+     *
+     * @return 
+     */
     public function getAuthenticatedUser()
     {
         return new UserResource(auth()->user());
     }
 
+    /**
+     * updates the currently authenticated user profile.
+     *
+     * @return 
+     */
     public function updateProfile()
     {
         return auth()->user()->update([
@@ -33,6 +55,11 @@ class EloquentUserRepository implements UserRepositoryInterface
         ]);
     }
 
+    /**
+     * Updates the authenticated user password.
+     *
+     * @return void
+     */
     public function updatePassword()
     {
         return auth()->user()->update([
@@ -41,27 +68,56 @@ class EloquentUserRepository implements UserRepositoryInterface
         ]);
     }
 
+    /**
+     * find a user by the given email.
+     *
+     * @param string $email
+     * @return void
+     */
     public function getUserByEmail($email)
     {
         return  User::where('email', $email)->first();
     }
 
+    /**
+     * checks if a user with the given phonenumber exists.
+     *
+     * @param string $phoneNumber
+     * @return boolean
+     */
     public function checkUserExistsViaPhonenumber($phoneNumber)
     {
         return User::where('phonenumber', $phoneNumber)->exist();
     }
 
+    /**
+     * formats the user phonenumber and fetches the user.
+     *
+     * @param string $phoneNumber
+     * @return void
+     */
     public function getUserWithPhonenumber($phoneNumber)
     {
         $formatedPhoneNumber = $this->formatPhonenumber($phoneNumber);
         return User::where('phonenumber', $formatedPhoneNumber)->first();
     }
 
+    /**
+     * formats the given phonenumber.
+     *
+     * @param string $phoneNumber
+     * @return string
+     */
     public function formatPhonenumber($phoneNumber)
     {
         return str_replace_first("+234", "0", $phoneNumber);
     }
 
+    /**
+     * gets the user with the phonenumber and password.
+     *
+     * @return \App\User|boolean
+     */
     public function getUserWithPhonenumberAndPassword($phoneNumber, $password)
     {
         $user = $this->getUserWithPhonenumber($phoneNumber);

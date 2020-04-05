@@ -9,6 +9,11 @@ use App\Repositories\Contracts\EmergencylineInterface;
 
 class EloquentEmergencylineRepository implements EmergencylineInterface
 {
+    /**
+     * fetches all emergencyagencies resource.
+     *
+     * @return \App\Http\Resources\EmergencylineCollection
+     */
     public function getAllEmergencyAgencies()
     {
         return new EmergencylineCollection(EmergencyAgency::all());

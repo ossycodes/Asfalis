@@ -12,10 +12,9 @@ use Illuminate\Http\Resources\Json\Resource;
 class EloquentEmergencyContactsRepository implements EmergencyContactsRepositoryInterface
 {
     /**
-     * description here.
+     * fetches all registered I.C.E contacts.
      *
-     * @param  
-     * @return 
+     * @return \App\Http\Resources\EmergencycontactsCollection
      */
     public function getEmergencyContactsForAuthenticatedUser()
     {
@@ -23,10 +22,10 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
     }
 
     /**
-     * description here.
+     * fetch emergencycontact by the given ID
      *
-     * @param  
-     * @return 
+     * @param  $emergencyContactId
+     * @return \App\Emergencycontacts
      */
     protected function fetchEmergencyContact($emergencyContactId)
     {
@@ -34,10 +33,10 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
     }
 
     /**
-     * description here.
+     * fetch emergencycontact by the given ID
      *
-     * @param  
-     * @return 
+     * @param  $emergencyContactId
+     * @return \App\Http\Resources\Emergencycontacts
      */
     public function getEmergencyContact($emergencyContactId)
     {
@@ -46,9 +45,8 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
     }
 
     /**
-     * description here.
-     *
-     * @param  
+     * creates I.C.E contacts for the authenticated user.
+     * 
      * @return 
      */
     public function createEmergencyContacts()
@@ -57,11 +55,11 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
         return auth()->user()->emergencycontacts()->createMany($emergencyContacts);
     }
 
-    /**
-     * description here.
+     /**
+     * updates emergencycontact by the given ID
      *
-     * @param  
-     * @return 
+     * @param  $emergencyContactId
+     * @return \App\Emergencycontacts
      */
     public function updateEmergencyContact($emergencyContactId)
     {
@@ -73,11 +71,11 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
         ]);
     }
 
-    /**
-     * description here.
+     /**
+     * deletes an emergencycontact by the given ID
      *
-     * @param  
-     * @return 
+     * @param  $emergencyContactId
+     * @return \App\Emergencycontacts
      */
     public function deleteEmergencyContact($emergencyContactId)
     {
@@ -85,11 +83,10 @@ class EloquentEmergencyContactsRepository implements EmergencyContactsRepository
         return $emergencyContact->delete();
     }
 
-    /**
-     * description here.
+     /**
+     * get the emergencycontact count for the authenticated user
      *
-     * @param  
-     * @return 
+     * @return \App\Emergencycontacts
      */
     public function getAuthenticatedUserEmergencyContactsCount()
     {
