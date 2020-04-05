@@ -80,7 +80,7 @@ class SmsManager extends Manager
     public function createBulkSmsDriver()
     {
         return new BulkSmsDriver(
-            "USECURED CHANGED TO STAY SAFE"
+            "ASFALIS"
             // $this->createTwilioClient(),
             // $this->app['config']['sms.twilio.from']
         );
