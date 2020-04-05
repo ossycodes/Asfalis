@@ -12,6 +12,6 @@ class TipsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Tips::class, 10)->create();
+        factory(Tips::class, 2)->create();
     }
 }
