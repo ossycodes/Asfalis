@@ -8,7 +8,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait userCanResetPassword
 {
-
+    /**
+     * validates and creates a reset token for user.
+     *
+     * @return App\User
+     */
     public function validateRequestandCreateToken()
     {
         $user = $this->userRepo->getUserByEmail(request('email'));
@@ -18,6 +22,12 @@ trait userCanResetPassword
         return $this->createToken($user);
     }
 
+    /**
+     * description here.
+     *
+     * @param  User  $user
+     * @return array
+     */
     public function createToken($user)
     {
         if ($user->hasResetToken()) {
@@ -33,6 +43,5 @@ trait userCanResetPassword
 
         //send user an email with the password reset link
         $user->notify(new ResetPasswordNotification($token));
-
     }
 }

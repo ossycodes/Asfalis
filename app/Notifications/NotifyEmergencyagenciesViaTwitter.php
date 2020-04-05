@@ -40,6 +40,6 @@ class NotifyEmergencyagenciesViaTwitter extends Notification implements ShouldQu
     {
         $emergencyTwitterHandlesAsArray = config('services.emergencyagenciestwitterhandles');
         $emergencyTwitterHandlesAsString = implode(",", $emergencyTwitterHandlesAsArray);
-        return new TwitterStatusUpdate("${$emergencyTwitterHandlesAsString}, {$this->userName} is currently in an emergency situation : {$this->service}. Location of user is: {$this->location}, From WeSafe");
+        return new TwitterStatusUpdate("${$emergencyTwitterHandlesAsString}, {$this->userName} is currently in an emergency situation : {$this->service}. Location of user is: {$this->location}, From Asfalis");
     }
 }

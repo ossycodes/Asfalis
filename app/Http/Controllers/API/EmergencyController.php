@@ -80,7 +80,7 @@ class EmergencyController extends Controller
             $response  = "CON Welcome to BESAFE what is your emergency situation? \n";
             $response .= "1. Fire Service \n";
             $response .= "2. Road Accident \n";
-            $response .= "3. Arm Robbery \n";
+            $response .= "3. Armed Robbery \n";
             $response .= "4. Others \n";
         } else if ($text == "1") {
             $response = "CON Please enter your location \n";
@@ -98,16 +98,17 @@ class EmergencyController extends Controller
                 $response = "END SMS and Email has been sent to your registered In Case Of Emergency (I.C.E) contacts, we have also tweeted various emergency agencies.\n";
                 //dispatch
                 //send sms in background.
-                //ProcessSMS::dispatch($user, $location);
+                //ProcessSMS::dispatch($user, $text);
                 //send email in background? maybe.
-                //ProcessEmergencyEmail::dispatch($user,$location);
+                //ProcessEmergencyEmail::dispatch($user,$text);
                 //notify emergency agencies via Twitter
                 ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
             } else {
                 $response = "END You are not registered for this service, please download WeSafe mobile application and register an account. \n";
                 //dispatch, remember to delete the below codes, was for testing
                 $user = \App\User::find(1);
-                ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
+                // ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
+                // ProcessSMS::dispatch($user, $text);
             }
         }
 
@@ -123,15 +124,15 @@ class EmergencyController extends Controller
         
         // 1. send SMS to I.C.E contatcs
             //send sms in background.
-            // $location = resolve('App\Services\GeolocationService')->getUserLocation($latitude, $longitude);
-            // ProcessSMS::dispatch($user, $location);
+            $location = resolve('App\Services\GeolocationService')->getUserLocation($latitude, $longitude);
+            ProcessSMS::dispatch(auth()->user(), $location);
         
         // 2. Send I.C.E contatcs emails
             // ProcessEmergencyEmail::dispatch(auth()->user(), $location);
         
         //TODO
         //3. Notify Emergency agencies via twitter
-            //ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
+            ProcessNotifyEmergencyagenciesViaTwitter::dispatch($text, $user);
 
         return $this->okay('sms and email sent to emergency contacts, we have also tweeted neccessary emergency agencies');
     }

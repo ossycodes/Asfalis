@@ -54,8 +54,13 @@ Route::group([
 
 ], function ($router) {
     Route::post('/ussd', 'EmergencyController@ussd');
+    Route::post('/incomingemergencycall', 'IncomingEmergencyCallController@handleIncomingcall');
+    Route::post('/incomingemergencycall/action', 'IncomingEmergencyCallController@handleUserInput');
     Route::get('/health-check', function () {
         return "all good";
+    });
+    Route::post('testdrivers', function (SmsManager $sms) {
+        dump(SMS::to('+2349023802591')->content('Test Message from Asfalis')->send());
     });
 });
 
@@ -78,11 +83,6 @@ Route::group([
     Route::get('users/{user}/relationships/emergencycontacts', function () {
         return true;
     })->name('users.relationships.emergencycontacts');
-    Route::post('testdrivers', function (SmsManager $sms) {
-        // dump($sms->send());
-        // dump($sms->channel('Africastalking')->send());
-        // dump(SMS::to('+2348034711579')->content('Test Message from WeSafe')->send());
-    });
 });
 
 
@@ -111,8 +111,8 @@ Route::group([
     Route::post('tips', 'TipsController@store')->name('tip.store');
     Route::patch('tips/{id}', 'TipsController@update')->name('tip.update');
     Route::delete('tips/{id}', 'TipsController@destroy')->name('tip.destroy');
-    Route::get('/users', 'UsersController@index')->name('users.all');    
-    Route::get('/users/{user}', 'UsersController@show')->name('user.show'); 
-    Route::get('/users/{user}/emergencycontacts', 'UserEmergencyContactsController@index')->name('user.emergencycontacts.all'); 
+    Route::get('/users', 'UsersController@index')->name('users.all');
+    Route::get('/users/{user}', 'UsersController@show')->name('user.show');
+    Route::get('/users/{user}/emergencycontacts', 'UserEmergencyContactsController@index')->name('user.emergencycontacts.all');
     Route::post('/emergencysituation', 'EmergencySituationController@alert')->name('emergencysituation.alert');
 });

@@ -19,7 +19,7 @@
         "mazedlx/laravel-feature-policy": "^1.0",
         "spatie/laravel-json-api-paginate": "^1.2.0",
         "spatie/laravel-query-builder": "^2.5",
-        "twilio/sdk": "^5.41",
+        "twilio/sdk": "^6.2",
         "tymon/jwt-auth": "~1.0.0-rc.2"
     },
     "require-dev": {

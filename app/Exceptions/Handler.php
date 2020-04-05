@@ -115,67 +115,48 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof TokenBlacklistedException) {
-            // return response([
-            //     'error' => 'Token is expired'
-            // ], Response::HTTP_BAD_REQUEST);
             return response()->json([
                 'errors' => [
                     [
                         'title' => Str::title(Str::snake(class_basename(
                             $exception
                         ), ' ')),
-                        // 'details' => $exception->getMessage(),
                         'details' => 'Token is expired',
                     ]
                 ]
-                // ], $this->isHttpException($exception) ? $exception->getStatusCode() : 500);
             ], $this->isHttpException($exception) ? $exception->getStatusCode() : Response::HTTP_BAD_REQUEST);
         } elseif ($exception instanceof TokenExpiredException) {
-            // return response([
-            //     'error' => 'Token is expired'
-            // ], Response::HTTP_BAD_REQUEST);
             return response()->json([
                 'errors' => [
                     [
                         'title' => Str::title(Str::snake(class_basename(
                             $exception
                         ), ' ')),
-                        // 'details' => $exception->getMessage(),
                         'details' => 'Token is expired',
                     ]
                 ]
             ], $this->isHttpException($exception) ? $exception->getStatusCode() : Response::HTTP_BAD_REQUEST);
-            // ], $this->isHttpException($exception) ? $exception->getStatusCode() : 500);
         } elseif ($exception instanceof TokenInvalidException) {
-            // return response([
-            //     'error' => 'Token is invalid'
-            // ], Response::HTTP_BAD_REQUEST);
             return response()->json([
                 'errors' => [
                     [
                         'title' => Str::title(Str::snake(class_basename(
                             $exception
                         ), ' ')),
-                        // 'details' => $exception->getMessage(),
                         'details' => 'Token is invalid',
                     ]
                 ]
             ], $this->isHttpException($exception) ? $exception->getStatusCode() : Response::HTTP_BAD_REQUEST);
         } elseif ($exception instanceof JWTException) {
-            // return response([
-            //     'error' => 'Token is not provided'
-            // ], Response::HTTP_BAD_REQUEST);
             return response()->json([
                 'errors' => [
                     [
                         'title' => Str::title(Str::snake(class_basename(
                             $exception
                         ), ' ')),
-                        // 'details' => $exception->getMessage(),
                         'details' => 'Token is not provided',
                     ]
                 ]
-                // ], $this->isHttpException($exception) ? $exception->getStatusCode() : 500);
             ], $this->isHttpException($exception) ? $exception->getStatusCode() : Response::HTTP_BAD_REQUEST);
         }
 

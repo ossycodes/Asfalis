@@ -14,6 +14,11 @@ class EloquentUserRepository implements UserRepositoryInterface
         return User::find($id);
     }
 
+    public function findByPhonenumber($phoneNumber)
+    {
+        return User::where("phonumber", $phoneNumber)->first();
+    }
+
     public function getAuthenticatedUser()
     {
         return new UserResource(auth()->user());

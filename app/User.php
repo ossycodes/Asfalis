@@ -58,10 +58,12 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * checks if the email belongs to administrator
+     * 
+     * @return boolean
      */
     public function isAdmin()
     {
-        return in_array($this->email, config('wesafe.admins'));
+        return in_array($this->email, config('asfalis.admins'));
     }
 
     /**
@@ -95,6 +97,9 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Get the registered Incase of emergency contacts for the user.
+     */
     public function emergencycontacts()
     {
         return $this->hasMany(Emergencycontacts::class);
@@ -105,21 +110,35 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(ResetToken::class);
     }
 
+    /**
+     * Get the tips created by the user.
+     */
     public function tips()
     {
         return $this->hasMany(Tips::class);
     }
 
+    /**
+     * Get the issues reported by the user.
+     */
     public function issues()
     {
         return $this->hasMany(Issue::class);
     }
 
+    /**
+     * Get the full name of the user.
+     */
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
     }
 
+    /**
+     * Creates reset token for the user.
+     * 
+     * @return string
+     */
     public function createResetToken()
     {
         $token = str_random();
@@ -130,20 +149,32 @@ class User extends Authenticatable implements JWTSubject
         return $token;
     }
 
+    /**
+     * Checks if the user has a reset token.
+     *
+     * @return boolean
+     */
     public function hasResetToken()
     {
         return $this->resetToken()->exists();
     }
 
+    /**
+     * registers the user.
+     */
     public function register()
     {
         $user = $this->create(request()->input('data.attributes'));
         return $user;
     }
 
+    /**
+     * generates the user default password.
+     *
+     * @return string
+     */
     private static function generateDefaultPassword(): string
     {
         return  \Illuminate\Support\Str::random(10);
     }
-
 }

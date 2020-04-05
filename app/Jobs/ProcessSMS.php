@@ -43,8 +43,8 @@ class ProcessSMS implements ShouldQueue
         }
         $emergencyContacts = $this->user->emergencycontacts;
         $emergencyContactPhonenumbers =  $emergencyContacts->pluck("phonenumber")->all();
-        $message = "{$this->user->full_name} is in an emergency situation, currently at {$this->location}, you are recieving this SMS because {$this->user->full_name} registered you as an In Case Of Emergency (I.C.E) contact,      FROM WESAFE";
+        $message = "{$this->user->full_name} is in an emergency situation, currently at {$this->location}, you are recieving this SMS because {$this->user->full_name} registered you as an In Case Of Emergency (I.C.E) contact, FROM ASFALIS";
         return $sms->to($emergencyContactPhonenumbers)->channel('Twillo')->content($message)->send();
-        
+        SMS::to($emergencyContactPhonenumbers)->content($message)->send();
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "edd215da1901c49e24432fbd9cd0f89f",
+    "content-hash": "9faadd097de72a6d643c345c25c0e0d8",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -880,6 +880,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -926,6 +927,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -3915,25 +3917,25 @@
         },
         {
             "name": "twilio/sdk",
-            "version": "5.42.0",
+            "version": "6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twilio/twilio-php.git",
-                "reference": "e1ea30f30e424ae76de01cfd8d582a5d29b13267"
+                "reference": "a891817d30c31d86e89b5fbfe46a8ef6b692be12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/e1ea30f30e424ae76de01cfd8d582a5d29b13267",
-                "reference": "e1ea30f30e424ae76de01cfd8d582a5d29b13267",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/a891817d30c31d86e89b5fbfe46a8ef6b692be12",
+                "reference": "a891817d30c31d86e89b5fbfe46a8ef6b692be12",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "apigen/apigen": "^4.1",
                 "guzzlehttp/guzzle": "^6.3",
-                "phpunit/phpunit": ">=4.5"
+                "phpunit/phpunit": ">=4.5",
+                "theseer/phpdox": "^0.12.0"
             },
             "suggest": {
                 "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
@@ -3961,7 +3963,7 @@
                 "sms",
                 "twilio"
             ],
-            "time": "2020-01-08T21:00:51+00:00"
+            "time": "2020-04-01T19:52:37+00:00"
         },
         {
             "name": "tymon/jwt-auth",

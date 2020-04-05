@@ -23,10 +23,11 @@ class Emergencycontacts extends Model
         'created' => EmergencycontactCreated::class,
     ];
 
-    //an emergency contact belongs to a user 
+    /**
+     * Get the user that registerd the In case of Emergency contact.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 }

@@ -7,10 +7,12 @@ interface UserRepositoryInterface
 {
     public function find(int $id);
 
+    public function findByPhonenumber($phonenumber);
+
     public function getAuthenticatedUser();
 
     public function updateProfile();
-    
+
     public function updatePassword();
 
     public function getUserByEmail($email);
