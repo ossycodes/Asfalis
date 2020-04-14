@@ -2,6 +2,7 @@
 
 namespace App\Components\Sms;
 
+use AfricasTalking\SDK\AfricasTalking;
 use Illuminate\Support\Manager;
 use Twilio\Rest\Client as TwilioClient;
 use App\Components\Sms\Drivers\TwilioDriver;
@@ -67,8 +68,21 @@ class SmsManager extends Manager
     public function createAfricastalkingDriver()
     {
         return new AfricastalkingDriver(
-            // $this->createNexmoClient(),
-            // $this->app['config']['sms.nexmo.from']
+            $this->createAfricasTalkingClient(),
+            config('asfalis.africastalking.from')
+        );
+    }
+
+    /**
+     * Create the AfricasTaking client.
+     * 
+     * @return \Twilio\Rest\Client
+    */
+    protected function createAfricasTalkingClient()
+    {
+        return new AfricasTalking(
+            config('asfalis.africastalking.username'),
+            config('asfalis.africastalking.apikey')
         );
     }
 

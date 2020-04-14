@@ -41,6 +41,19 @@ class EloquentTipsRepository implements TipsRepositoryInterface
      * @param integer $id
      * @return void
      */
+    public function update(Request $request, $id)
+    {
+        Tips::where('id', $id)
+            ->update($request->input('data.attributes'));
+        return $this->find($id);
+    }
+
+    /**
+     * fetch all tips created.
+     *
+     * @param integer $id
+     * @return void
+     */
     public function all()
     {
         return Tips::all();

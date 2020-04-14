@@ -12,8 +12,8 @@ class EloquentUserRepository implements UserRepositoryInterface
     /**
      * find a user with the given ID.
      *
-     * @param integer $id
-     * @return void
+     * @param $phoneNumber
+     * @return \App\User
      */
     public function find(int $id)
     {
@@ -24,7 +24,7 @@ class EloquentUserRepository implements UserRepositoryInterface
      * find a user with the given phonenumber.
      *
      * @param $phoneNumber
-     * @return void
+     * @return \App\User
      */
     public function findByPhonenumber($phoneNumber)
     {
@@ -34,7 +34,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     /**
      * fetches the currently authenticated user as a resource.
      *
-     * @return 
+     * @return \App\Http\Resources\User
      */
     public function getAuthenticatedUser()
     {
@@ -44,7 +44,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     /**
      * updates the currently authenticated user profile.
      *
-     * @return 
+     * @return \App\User
      */
     public function updateProfile()
     {
@@ -58,7 +58,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     /**
      * Updates the authenticated user password.
      *
-     * @return void
+     * @return \App\User
      */
     public function updatePassword()
     {
@@ -72,7 +72,7 @@ class EloquentUserRepository implements UserRepositoryInterface
      * find a user by the given email.
      *
      * @param string $email
-     * @return void
+     * @return \App\User
      */
     public function getUserByEmail($email)
     {
@@ -94,7 +94,7 @@ class EloquentUserRepository implements UserRepositoryInterface
      * formats the user phonenumber and fetches the user.
      *
      * @param string $phoneNumber
-     * @return void
+     * @return \App\User
      */
     public function getUserWithPhonenumber($phoneNumber)
     {

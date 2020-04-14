@@ -4,7 +4,7 @@ namespace App\Repositories\Contracts;
 
 use Illuminate\Http\Request;
 
-interface TipsRepositoryInterface
+interface NewsRepositoryInterface
 {
     public function create(Request $request);
 
@@ -13,4 +13,8 @@ interface TipsRepositoryInterface
     public function update(Request $request, $id);
 
     public function all();
+
+    public function delete($id);
+
+    public function paginate(array $allowedSorts, ?int $perPage);
 }

@@ -26,22 +26,21 @@ class AfricastalkingDriver
      * @return void
      */
 
-    public function __construct()
+    public function __construct($AT, $from)
     {
-        // $this->client = $nexmo;
-        // $this->from = $from;
+        $this->client = $AT;
+        $this->from = $from;
     }
     /**
      * {@inheritdoc}
      */
     public function send()
     {
-        dd("sending via Africastalking driver ....");
-        // return $this->client->message()->send([
-        //     'type' => 'text',
-        //     'from' => $this->from,
-        //     'to' => $this->recipient,
-        //     'text' => trim($this->message)
-        // ]);
+        $result   = $this->client->sms()->send([
+            'to'      => $this->from,
+            'message' => trim($this->message)
+        ]);
+
+        return $result;
     }
 }

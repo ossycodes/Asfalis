@@ -35,5 +35,6 @@ class CustomServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Contracts\EmergencyContactsRepositoryInterface', 'App\Repositories\Concretes\EloquentEmergencyContactsRepository');
         $this->app->bind('App\Repositories\Contracts\EmergencylineInterface', 'App\Repositories\Concretes\EloquentEmergencylineRepository');
         $this->app->bind('App\Repositories\Contracts\TipsRepositoryInterface', 'App\Repositories\Concretes\EloquentTipsRepository');
+        $this->app->bind('App\Repositories\Contracts\NewsRepositoryInterface', 'App\Repositories\Concretes\EloquentNewsRepository');
     }
 }
