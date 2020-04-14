@@ -1,6 +1,6 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel."></p>
 
-## About WeSafe
+## About ASFALIS
 
 
 - [API documentation can be found here](https://documenter.getpostman.com/view/4871909/SVYwJGAk).
@@ -18,7 +18,7 @@
 
 ## Contributing
 
-Thank you for considering contributing to the WeSafe application! The contribution guide can be found in the contributing.md file.
+Thank you for considering contributing to the AFALIS application! The contribution guide can be found in the contributing.md file.
 
 ## Security Vulnerabilities
 
@@ -26,4 +26,4 @@ If you discover a security vulnerability within WeSafe application, please send 
 
 ## License
 
-The WeSafe API is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The ASFALIS API is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
