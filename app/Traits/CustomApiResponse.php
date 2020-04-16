@@ -69,6 +69,10 @@ trait CustomApiresponse
     {
         return response()->json([
             'data' => [
+                'first_name' => auth()->user()->first_name,
+                'last_name' => auth()->user()->last_name,
+                'phonenumber' => auth()->user()->phonenumber,
+                'email' => auth()->user()->email,
                 'access_token' => $token,
                 'token_type' => 'bearer',
             ]

@@ -9,7 +9,7 @@
 ## USE CASES/PURPOSE
 
 * Connects users in emergency situations with registered In Case Of Emergency (I.C.E) contacts how?
-* By Sending them an SMS immediately a user dials WeSafe USSD code or click the panic button on the WeSafe Mobile Application Dashboard
+* By Sending them an SMS immediately a user dials ASFALIS USSD code or click the panic button on the WeSafe Mobile Application Dashboard
 * We also notify various neccesary emergency agencies of the current user emergency situation via SMS and socialmedia (Twiter to be specific)
 * Users can report any issue or observed events that might lead to emergency situations, this in turn would be sent to LASEMA.
 * User can share emergency tips with other users

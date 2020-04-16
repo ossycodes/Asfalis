@@ -1,5 +1,5 @@
 @component('mail::message')
-# Welcome to BESAFE
+# Welcome to ASFALIS
 
 Dear {{ $emergencycontact->name }}, {{ $user->full_name }} registered you as an In Case Of Emergency (ICE) contact.
 <br>
