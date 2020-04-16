@@ -76,7 +76,7 @@ trait CustomApiresponse
                 'access_token' => $token,
                 'token_type' => 'bearer',
             ]
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     /**
