@@ -31,11 +31,12 @@ class SendRegisterationCode implements ShouldQueue
      */
     public function handle()
     {
-        $code = substr($this->user->password, 3, 5);  // bcd
-        try {
-            return SMS::to($this->user->phonenumber)->content("Your Registeration Code is {$code}")->send();
-        } catch (Exception $ex) {
-            throw $ex;
-        }
+        $code = substr($this->user->password, 3, 5); 
+        dd($code);
+        // try {
+        //     return SMS::to($this->user->phonenumber)->content("Your Registeration Code is {$code}")->send();
+        // } catch (Exception $ex) {
+        //     throw $ex;
+        // }
     }
 }
