@@ -34,7 +34,6 @@ class AuthController extends  \App\Http\Controllers\Controller
         ];
 
         if (!$token = auth()->attempt($credentials)) {
-            // throw new UnauthorizedException("not authenticated");
             return $this->errorBadRequest();
         }
         return $this->respondWithToken($token);

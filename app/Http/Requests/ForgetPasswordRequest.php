@@ -39,7 +39,7 @@ class ForgetPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.exists' => 'email does not exist'
+            'data.attributes.email.exists' => 'email does not exist.'
         ];
     }
 }

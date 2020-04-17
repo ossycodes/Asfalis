@@ -23,7 +23,9 @@ class ForgetPasswordController extends \App\Http\Controllers\Controller
 
     public function store(ForgetPasswordRequest $request)
     {
-        $this->validateRequestandCreateToken();
+        if (!$this->validateRequestandCreateToken()) {
+            return $this->errorBadRequest('Reset password link as already been sent to user\'s email');
+        }
         return $this->created('reset password link sent successfully');
     }
 }
