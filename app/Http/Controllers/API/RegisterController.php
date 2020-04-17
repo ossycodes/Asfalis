@@ -20,7 +20,7 @@ class RegisterController extends \App\Http\Controllers\Controller
         if ($user = $user->register()) {
             //dispatch sendRegisterationCode to user's phonenumber
             // SendRegisterationCode::dispatch($user);
-            return $this->created('registeration successful, password as been sent to your email');
+            return $this->okay('registeration successful, password as been sent to your email');
         }
     }
 }
