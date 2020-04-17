@@ -33,4 +33,17 @@ class RegisterUser extends FormRequest
             "data.attributes.phonenumber" => "required|unique:users,phonenumber|digits:11",
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'data.attributes.email.unique' => 'email has already been taken.',
+            'data.attributes.phonenumber.unique'  => 'phonenumber has already been taken.',
+        ];
+    }
 }
