@@ -29,8 +29,8 @@ class RegisterUser extends FormRequest
             "data.attributes" => "required|array",
             "data.attributes.first_name" => "required|string",
             "data.attributes.last_name" => "required|string",
-            "data.attributes.email" => "required|string",
-            "data.attributes.phonenumber" => "required|digits:11",
+            "data.attributes.email" => "required|unique:users,email|string",
+            "data.attributes.phonenumber" => "required|unique:users,phonenumber|digits:11",
         ];
     }
 }
