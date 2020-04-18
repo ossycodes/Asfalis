@@ -22,7 +22,8 @@ trait userCanResetPassword
             return false;
         }
 
-        $this->createToken($user);
+         return $this->createToken($user);
+       
     }
 
     /**
@@ -40,6 +41,8 @@ trait userCanResetPassword
         $token = $user->createResetToken();
 
         //send user an email with the password reset link
-        return $user->notify(new ResetPasswordNotification($token));
+        $user->notify(new ResetPasswordNotification($token));
+
+        return true;
     }
 }
