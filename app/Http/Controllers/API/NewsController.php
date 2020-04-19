@@ -30,6 +30,6 @@ class NewsController extends Controller
 
     public function show($id)
     {
-        return $this->newRepo->find($id);
+        return $this->newsRepo->find($id);
     }
 }

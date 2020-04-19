@@ -4,6 +4,7 @@ namespace App\Repositories\Concretes;
 
 use App\News;
 use Illuminate\Http\Request;
+use App\Http\Resources\NewsResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\NewsCollection;
 use App\Repositories\Contracts\NewsRepositoryInterface;
