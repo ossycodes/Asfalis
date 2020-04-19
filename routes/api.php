@@ -31,7 +31,8 @@ Route::group([
     'namespace' => 'API'
 
 ], function ($router) {
-
+    Route::get('/emergencylinescategories', 'EmergencylinesCategoriesController@index')->name('emergencylinescategories.all');
+    Route::get('/emergencylinescategories/{id}/emergencylines', 'EmergencylinesCategoriesController@show')->name('emergencylinescategories.show');
     Route::get('/emergencyagencies', 'EmergencylineController@index');
     Route::get('/news', 'NewsController@index')->name('user.news.all');
     Route::get('/news/{id}', 'NewsController@show')->name('user/news.show');

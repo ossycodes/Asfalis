@@ -19,4 +19,6 @@ interface NewsRepositoryInterface
     public function paginate(array $allowedSorts, ?int $perPage);
 
     public function count(): int;
+
+    public function get();
 }

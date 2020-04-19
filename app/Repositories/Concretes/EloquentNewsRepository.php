@@ -18,6 +18,11 @@ class EloquentNewsRepository implements NewsRepositoryInterface
         return new NewsResource($news);
     }
 
+    public function get($id)
+    {
+        return News::find($id);
+    }
+
     public function all()
     {
         $news = QueryBuilder::for(News::class)->allowedSorts([

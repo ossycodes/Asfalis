@@ -30,6 +30,9 @@ class NewsController extends Controller
 
     public function show($id)
     {
+        if (!$this->newsRepo->get($id)) {
+            return $this->errorNotFound("News for the given ID does not exist");
+        }
         return $this->newsRepo->find($id);
     }
 }
