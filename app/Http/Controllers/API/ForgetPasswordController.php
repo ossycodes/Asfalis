@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ForgetPasswordRequest;
 use App\Traits\userCanResetPassword;
-use App\Notifications\ResetPasswordNotification;
 use App\Repositories\Contracts\UserRepositoryInterface;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
-class ForgetPasswordController extends \App\Http\Controllers\Controller
+class ForgetPasswordController extends Controller
 {
     use userCanResetPassword;
     public $userRepo;

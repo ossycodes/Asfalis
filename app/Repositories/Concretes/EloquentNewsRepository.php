@@ -5,6 +5,7 @@ namespace App\Repositories\Concretes;
 use App\News;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\NewsCollection;
 use App\Repositories\Contracts\NewsRepositoryInterface;
 
 
@@ -12,17 +13,27 @@ class EloquentNewsRepository implements NewsRepositoryInterface
 {
     public function find($id)
     {
-        return News::find($id);
+        $news = News::find($id);
+        return new NewsResource($news);
     }
 
+    public function all()
+    {
+        $news = QueryBuilder::for(News::class)->allowedSorts([
+            'title',
+            'description'
+        ])->get();
+
+        return new NewsCollection($news);
+    }
     public function paginate(array $allowedSorts, ?int $perPage = null)
     {
-        return  QueryBuilder::for(News::class)->allowedSorts($allowedSorts)->paginate($perPage);
+        return QueryBuilder::for(News::class)->allowedSorts($allowedSorts)->paginate($perPage);
     }
 
     public function create(Request $request)
     {
-        return  News::create($request->input('data.attributes'));
+        return News::create($request->input('data.attributes'));
     }
 
     public function update(Request $request, $id)
@@ -35,5 +46,10 @@ class EloquentNewsRepository implements NewsRepositoryInterface
     {
         $news = News::find($id);
         return $news->delete();
+    }
+
+    public function count(): int
+    {
+        return News::count();
     }
 }

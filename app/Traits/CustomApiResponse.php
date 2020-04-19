@@ -137,4 +137,19 @@ trait CustomApiresponse
             ]
         ], Response::HTTP_CREATED);
     }
+
+    /**
+     * description here.
+     *
+     * @param  string|null  $msg
+     * @return array
+     */
+    public function errorNotFound($msg = null)
+    {
+        return response()->json([
+            'data' => [
+                'title' => $msg
+            ]
+        ], Response::HTTP_NOT_FOUND);
+    }
 }

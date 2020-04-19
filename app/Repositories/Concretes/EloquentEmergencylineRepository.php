@@ -18,4 +18,14 @@ class EloquentEmergencylineRepository implements EmergencylineInterface
     {
         return new EmergencylineCollection(EmergencyAgency::all());
     }
+
+    /**
+     * counts all emergencyagencies resource.
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return EmergencyAgency::count();
+    }
 }

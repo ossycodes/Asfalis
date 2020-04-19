@@ -17,4 +17,6 @@ interface NewsRepositoryInterface
     public function delete($id);
 
     public function paginate(array $allowedSorts, ?int $perPage);
+
+    public function count(): int;
 }

@@ -8,22 +8,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\NewsResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\NewsCollection;
+use App\Repositories\Contracts\NewsRepositoryInterface;
 
 class NewsController extends Controller
 {
+    public $newsRepo;
+
+    public function __construct(NewsRepositoryInterface $newsRepo)
+    {
+        $this->newsRepo = $newsRepo;
+    }
+
     public function index()
     {
-        $news = QueryBuilder::for(News::class)->allowedSorts([
-            'title',
-            'description'
-        ])->paginate();
+        if ($this->newsRepo->count() == 0) {
+            return $this->errorNotFound("No news available at the moment");
+        }
 
-        return new NewsCollection($news);
+        return $this->newsRepo->all();
     }
 
     public function show($id)
     {
-        $news = News::find($id);
-        return new NewsResource($news);
+        return $this->newRepo->find($id);
     }
 }

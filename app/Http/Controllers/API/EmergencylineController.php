@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Repositories\Contracts\EmergencylineInterface;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class EmergencylineController extends  \App\Http\Controllers\Controller
 {
@@ -17,6 +15,9 @@ class EmergencylineController extends  \App\Http\Controllers\Controller
 
     public function index()
     {
+        if ($this->emergencyAgencyRepo->count() === 0) {
+            return $this->errorNotFound("no emergencyline available at the moment");
+        }
         return $this->emergencyAgencyRepo->getAllEmergencyAgencies();
     }
 }
