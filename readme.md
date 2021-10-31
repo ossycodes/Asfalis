@@ -1,6 +1,6 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel."></p>
 
-## About ASFALIS
+## About ASFALIS (SADLY WE NEVER COMPLETED, BUT IT WAS FUN -:)
 
 
 - [API documentation can be found here](https://documenter.getpostman.com/view/4871909/SVYwJGAk).
